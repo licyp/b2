@@ -1,0 +1,103 @@
+pagination style: pop up list colours
+scroll bar style
+pagination to the right
+tooltip styling
+BASIC PAGE to DL
+TODO style pop up tooltip: filter list
+TODO add compact: minimal padding
+TODO Apollo in memory cash
+
+Colour definition by theme setting light, dark etc.
+take out pagination as other file
+inherit styles
+
+Take out Table Body as Separate file
+Combine tooltip, header , body and pagination???
+
+add override?
+createMuiTheme({
+  overrides: {
+    MuiAutocomplete: {
+      option: {
+        '&[data-focus="true"]': {
+          backgroundColor: 'red',
+        },
+      },
+    },
+  },
+})
+
+<TableCell>{row.date.formatted}</TableCell>
+
+ code rule in HTMP:
+// style={{
+//   backgroundColor: isItemSelected ? 'lightblue' : 'brown',
+// }}
+// checked === true ={() => setIsShown(true)}
+// checked={() => setIsShown(false)}
+
+// component={{ component: isItemSelected ? 'Checkbox' : 'Checkbox'}}
+// align={headCell.numeric ? 'right' : 'left'}
+// component={isItemSelected ? "Checkbox" : "CheckboxED"}
+
+https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Techniques/Using_the_aria-labelledby_attribute
+<button aria-label="Close" onclick="myDialog.close()">X</button>
+<div id="radio_label">My radio label</div>
+<ul role="radiogroup" aria-labelledby="radio_label">
+    <li role="radio">Item #1</li>
+    <li role="radio">Item #2</li>
+    <li role="radio">Item #3</li>
+</ul>
+
+
+TODO
+autofit columns, min max width
+tooltip: wrap text, min max
+shrink table when page has not many lines to display (last page is shorter)
+select columns
+order columns
+default display the mandatory
+filter in heading
+multi column order
+highlight table as typed in to 'search' with <>buttons
+if search is not empty show button filter
+fuzzy filer when clicked on filter
+selected: delete, download selected
+checkbox only to select
+click on line expand (only if not all headings displayed) for details (non displayed headings)
+above toolbar, or multi line, select NODE LABEL same line to select headings (pills)
+select is always predictive type with pills if multi select
+
+TODO NEXT
+from name open details
+mandatory shown while additional is expendable
+show graph +- distance (above below???)
+graph with type and name, interactive
+first neighbour types are columns with actuals as rows
+at bottom of column is unrelated but within x distance (still relation but with unlinked status until submit)
+within type linked or unlink
+click on item show details which is type of relation, additional expand detail of items???
+
+Details:
+LABEL update as pills (what available is limited by definition)
+
+Network:
+details screen select immediate neighbour type (major elements), list all,
+select one more what linked to the type before (minor elements) column settings to rearrange
+copy or move
+columns or rows
+
+Details:
+list NODES related select as pills what to display
+    from the list add new option what related to the fist etc (major-minor-defect-recommendations)
+    or related interest select recommendation (system finds a link)
+ if expanded show details (if related interest auto expand)
+if only one, list data, if more grid, if 3-4 columns
+add + button: add to existing as predictive text or add new
+result grid select related to (es column heading) new column with pills as NODES
+recommendation link to multiple defects, one TO
+WO to many TO, to project, many assets
+
+from grid selected: add to only direct relations as option (defects to recommendation)
+add list of existing as predictive text or add new
+
