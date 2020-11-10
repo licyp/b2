@@ -5,11 +5,7 @@ import FilterListIcon from '@material-ui/icons/FilterList'
 import PropTypes from 'prop-types'
 import React from 'react'
 
-import {useToolbarStyles} from './theme/a_component.style' // Original styles
-
 const EnhancedTableToolbar = (props) => {
-
-  // const { classes, numSelected } = props; // Original styles
   const { numSelected } = props;
 
   return (
@@ -17,13 +13,9 @@ const EnhancedTableToolbar = (props) => {
       className={clsx("ToolbarInactive", {
         ["ToolbarActive"]: numSelected > 0,
       })}
-      //  className={clsx(classes.MuiToolBarRoot, { // Original styles
-      //    [classes.MuiToolBarActive]: numSelected > 0, // Original styles
-      //  })} // Original styles
     >
       {numSelected > 0 ? (
         <Typography
-          // className={classes.MuiToolbar} // Original styles
           className="ToolbarBase"
           color="inherit"
           variant="subtitle1"
@@ -34,7 +26,6 @@ const EnhancedTableToolbar = (props) => {
         </Typography>
       ) : (
         <Typography
-          // className={classes.MuiToolbar} // Original styles
           className="ToolbarBase"
           variant="h6"
           id="tableTitle"
@@ -52,7 +43,6 @@ const EnhancedTableToolbar = (props) => {
           title="Delete"
         >
           <IconButton
-            // className={classes.MuiButton} // Original styles
             aria-label="delete"
           >
             <DeleteIcon />
@@ -64,7 +54,6 @@ const EnhancedTableToolbar = (props) => {
           title="Filter list"
         >
           <IconButton
-            // className={classes.MuiButton} // Original styles
             aria-label="filter list"
           >
             <FilterListIcon />

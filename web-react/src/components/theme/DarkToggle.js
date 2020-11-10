@@ -1,20 +1,14 @@
 import React from 'react'
 
 import { useThemeDL } from './DL_context'
-import {SwitchStylesDL} from './DL_switch.style'
+import {SwitchStylesDL} from './DL_toggle.style'
 import {Switch} from '@material-ui/core'
 
-
-// import { useThemeCompact } from './Compact_context'
-
-const Toggle = () => {
+const DarkToggle = () => {
   const classes = SwitchStylesDL();
   const themeStateDL = useThemeDL();
   const [toggled, setToggled] = React.useState(themeStateDL.dark);
-  // {themeStateCompact.compact ? "Switch to Normal mode" : "Switch to Compact Mode"}
   // TODO use above to link check box to state
-  // const themeStateCompact = useThemeCompact();
-  // const [toggledCompact, setToggledCompact] = React.useState(themeStateCompact.dark);
 
   return (
     <div>
@@ -29,11 +23,8 @@ const Toggle = () => {
             onClick={() => themeStateDL.toggle()}
             aria-label={{ checked: "Dark mode", unchecked: "Light mode" }}
           />
-      {/*<button  onClick={() => themeStateCompact.toggle()}>*/}
-      {/*  {themeStateCompact.compact ? "Switch to Normal mode" : "Switch to Compact Mode"}*/}
-      {/*</button>*/}
     </div>
   );
 };
 
-export default Toggle;
+export default DarkToggle;

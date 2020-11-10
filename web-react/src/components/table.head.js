@@ -2,11 +2,16 @@ import { Checkbox, TableCell, TableHead, TableRow, TableSortLabel } from '@mater
 import PropTypes from 'prop-types'
 import React from 'react'
 
-import {headCellsB} from './b_table.head.cells'
+import {HeadCells} from './table.head.cells'
 
 // TODO data.heading as prop
+// TODO filter at header headCells
+// TODO order by multiple headings
+// TODOSticky header row
+// TODO scroll of No. of rows or columns are greater then
+// TODO when intermediate on click unselect all
 
-function EnhancedTableHeadB(props) {
+function EnhancedTableHead(props) {
   const { onSelectAllClick, order, orderBy, numSelected, rowCount, onRequestSort } = props;
   const createSortHandler = (property) => (event) => {
     onRequestSort(event, property);
@@ -16,7 +21,8 @@ function EnhancedTableHeadB(props) {
   // TODO order by multiple headings
   // TODOSticky header row
   // TODO scroll of No. of rows or columns are greater then
-console.log('In header row count: ' + rowCount);
+  // TODO when intermediate on click unselect all
+// console.log('In header row count: ' + rowCount);
 
 
   return (
@@ -30,7 +36,7 @@ console.log('In header row count: ' + rowCount);
             inputProps={{ 'aria-label': 'select all' }}
           />
         </TableCell>
-        {headCellsB.map((headCell) => (
+        {HeadCells.map((headCell) => (
           <TableCell
             key={headCell.id}
             align={headCell.numeric ? 'right' : 'left'}
@@ -60,7 +66,7 @@ console.log('In header row count: ' + rowCount);
   );
 }
 
-EnhancedTableHeadB.propTypes = {
+EnhancedTableHead.propTypes = {
   numSelected: PropTypes.number.isRequired,
   onRequestSort: PropTypes.func.isRequired,
   onSelectAllClick: PropTypes.func.isRequired,
@@ -70,5 +76,5 @@ EnhancedTableHeadB.propTypes = {
 };
 
 export {
-  EnhancedTableHeadB,
+  EnhancedTableHead,
 };

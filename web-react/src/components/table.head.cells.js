@@ -1,8 +1,6 @@
-const headCellsB = [
-  { id: 'id', numeric: false, disablePadding: false, label: 'ID' },
-  { id: 'ref', numeric: false, disablePadding: false, label: 'Ref' },
-  { id: 'name', numeric: false, disablePadding: true, label: 'Name' },
-  { id: 'order', numeric: true, disablePadding: false, label: 'Order' },
+const HeadCells = [
+  { id: 'name', numeric: false, disablePadding: true, label: 'Person Name' },
+  { id: 'born', numeric: true, disablePadding: false, label: 'Born in Year' },
   { id: 'action', numeric: false, disablePadding: false, label: 'Action' },
   // TODO add tooltip
 ];
@@ -18,5 +16,5 @@ const headCellsB = [
 
 
 export {
-  headCellsB,
+  HeadCells,
 };

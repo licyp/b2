@@ -1,6 +1,5 @@
 import React from 'react'
 import { useQuery, useMutation } from '@apollo/client'
-import { withStyles } from '@material-ui/core/styles'
 import {
   Table,
   TableBody,
@@ -14,17 +13,30 @@ import {
   TablePagination,
   Checkbox,
 } from '@material-ui/core'
-import { styles } from './theme/a_component.style'
 
-import { GET_STEPS, CREATE_STEP, REMOVE_STEP } from './a_queries'
+import {
+  CREATE_STEP,
+  REMOVE_STEP,
+  GET_PERSONS,
+  GET_MOVIES,
+} from './queries'
 import Title from './Title'
 import TableContainer from '@material-ui/core/TableContainer'
-import { EnhancedTableHead } from './a_table.head'
-import { EnhancedTableHeadB } from './b_table.head'
-import { EnhancedTableToolbar } from './a_table.toolbar'
-import { EnhancedTableToolbarB } from './b_table.toolbar'
+import { EnhancedTableHead } from './table.head'
+import { EnhancedTableToolbar } from './table.toolbar'
 
-function NodeListgql() {
+
+// TODO Collapsible table as show details
+// TODO reorder columns
+// TODO add size option
+
+// TODO add label selection for which node type to be displayed
+
+
+
+
+
+function ListOfNode() {
   const [filterState, setFilterState] = React.useState({ nameFilter: '' })
   const [order, setOrder] = React.useState('asc')
   const [orderBy, setOrderBy] = React.useState('name')
@@ -54,9 +66,8 @@ function NodeListgql() {
 
   const handleSelectAllClick = (event) => {
     if (event.target.checked) {
-      const newSelecteds = data.Step.map((n) => n.name)
+      const newSelecteds = data.Person.map((n) => n.name)
       setSelected(newSelecteds)
-      console.log('Before ALL selected: ' + selected.length)
       return
     }
     setSelected([])
@@ -79,7 +90,6 @@ function NodeListgql() {
       )
     }
     setSelected(newSelected)
-    console.log('Before Click selected: ' + selected.length)
   }
 
   const isSelected = (name) => {
@@ -87,7 +97,7 @@ function NodeListgql() {
   }
 
   const dataLength = () => {
-    return data.stepCount
+    return data.PersonCount
   }
 
   const handleChangePage = (event, newPage) => {
@@ -99,7 +109,7 @@ function NodeListgql() {
     setPage(0)
   }
 
-  const { loading, data, error } = useQuery(GET_STEPS, {
+  const { loading, data, error } = useQuery(GET_PERSONS, {
     variables: {
       first: rowsPerPage,
       offset: rowsPerPage * page,
@@ -115,20 +125,18 @@ function NodeListgql() {
 
   console.log('Data back: ' + data)
   console.log('Data length: ' + dataLength)
-  // console.log(toJSON(data))
 
-  // console.log(data.Step.length)
 
   return (
     <React.Fragment>
       <Paper>
-        <Title>Steps</Title>
+        <Title>Persons</Title>
 
         {loading && !error && <p>Loading...</p>}
         {error && !loading && <p>Error</p>}
         {data && !loading && !error && (
           <React.Fragment>
-            {/*TODO stye as others*/}
+            {/*TODO style as others*/}
             <form
               onSubmit={(e) => {
                 e.preventDefault()
@@ -160,11 +168,11 @@ function NodeListgql() {
               type="text"
             />
 
-            <EnhancedTableToolbarB numSelected={selected.length} />
+            <EnhancedTableToolbar numSelected={selected.length} />
             <TableContainer>
               <Table>
                 {/*TODO 13 Slected (7 not visible)*/}
-                <EnhancedTableHeadB
+                <EnhancedTableHead
                   numSelected={selected.length}
                   order={order}
                   orderBy={orderBy}
@@ -173,7 +181,7 @@ function NodeListgql() {
                   rowCount={dataLength()}
                 />
                 <TableBody>
-                  {data.Step.map((row, index) => {
+                  {data.Person.map((row, index) => {
                     const isItemSelected = isSelected(row.name)
                     const labelId = `enhanced-table-checkbox-${index}`
                     return (
@@ -193,10 +201,10 @@ function NodeListgql() {
                             inputProps={{ 'aria-labelledby': labelId }}
                           />
                         </TableCell>
-                        <TableCell align="right">{row.id}</TableCell>
-                        <TableCell align="right">{row.ref}</TableCell>
+                        {/*<TableCell align="right">{row.id}</TableCell>*/}
                         <TableCell align="right">{row.name}</TableCell>
-                        <TableCell align="right">{row.order}</TableCell>
+                        <TableCell align="right">{row.born}</TableCell>
+                        {/*<TableCell align="right">{row.order}</TableCell>*/}
                         <TableCell align="center">
                           <button
                             className="btn btn-sm rounded-circle float-right"
@@ -242,4 +250,4 @@ function NodeListgql() {
   )
 }
 
-export default NodeListgql
+export default ListOfNode

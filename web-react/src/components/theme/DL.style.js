@@ -1,5 +1,5 @@
 
-const themeDivLight = {
+const themeLight = {
   background: '#f5f5f5',
   color: '#0b2486',
   selected: 'rgba(11,36,134,0.25)',
@@ -33,7 +33,7 @@ const themeDivLight = {
   // borderWidth: 4,
 }
 
-const themeDivDark = {
+const themeDark = {
   background: 'rgb(3,14,59)',
   color: '#968f8f',
   selected: 'rgba(119,124,152,0.5)',
@@ -67,6 +67,6 @@ const themeDivDark = {
   // borderWidth: 4,
 }
 
-const StyleDL = (mode) => (mode === 'dark' ? themeDivDark : themeDivLight)
+const StyleDL = (mode) => (mode === 'dark' ? themeDark : themeLight)
 
 export { StyleDL }

@@ -1,59 +1,5 @@
 import styled from '@emotion/styled'
-import { keyframes } from '@emotion/core'
-import { lighten, makeStyles } from '@material-ui/core/styles'
-import { StyleDL } from './DL.style'
-import { useThemeDL } from './DL_context'
 import React from 'react'
-
-
-// const useStyles = makeStyles(theme => ({
-//   appbar: props => ({
-//     boxShadow: "none",
-//     background: "transparent",
-//     marginTop: theme.spacing(2),
-//     marginBottom: theme.spacing(2),
-//     color: theme.palette.getContrastText(props)
-//   }),
-// }));
-//
-// const classes = useStyles(backgroundColor);
-
-const WrapperDLKK = makeStyles((theme) => ({
-  // MuiPaper: props => ({
-  //   width: '100%',
-  //   // marginBottom: theme.spacing(2),
-  //   backgroundColor: 'rgba(41,31,31,0.95)' + ' !important',
-  //   color: 'rgba(227,227,214,0.95)' + ' !important',
-  //   borderStyle: props.theme.borderStyle,
-  //   borderColor: props.theme.borderColor,
-  //   borderWidth: props.theme.borderWidth,
-  // }),
-  // MuiPaper:{
-  //     backgroundColor: 'rgba(41,31,31,0.95)' + ' !important',
-  //     color: 'rgba(227,227,214,0.95)' + ' !important',
-  //   borderStyle: theme.borderStyle,
-  //   borderColor:  theme.borderColor,
-  //   borderWidth: theme.borderWidth,
-  // },
-  // menuButton: props => ({
-  //   marginRight: props.theme.spacing(2),
-  //   "&:hover": {
-  //     background: 'grey',
-  //     borderStyle: 'groove',
-  //     borderColor: 'coral',
-  //     borderWidth: 7,
-  //   },
-  // }),
-  // title: {
-  //   background: 'blue',
-  //   borderStyle: 'groove',
-  //   borderColor: 'coral',
-  //   borderWidth: 7,
-  //   "&:hover": {
-  //     background: 'pink',
-  //   },
-  // },
-}))
 
 const WrapperDL = styled.div(
   {
@@ -268,4 +214,4 @@ const WrapperDL = styled.div(
   })
 )
 
-export { WrapperDL, WrapperDLKK }
+export { WrapperDL }

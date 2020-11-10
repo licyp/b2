@@ -2,6 +2,22 @@
 #TODO labels and properties
 
 
+type Person {
+  name: String!
+  born: Int
+}
+type Movie {
+  title: String!
+  released: Int
+  tagline: String
+}
+type Query {
+  PersonCount: Int! @cypher(statement: "MATCH (u:Person) RETURN COUNT(u)")
+  MovieCount: Int! @cypher(statement: "MATCH (u:Movie) RETURN COUNT(u)")
+}
+
+#########################################################################################
+
 type Step {
   licypId: ID!
   name: String!
@@ -9,9 +25,9 @@ type Step {
   order: Float
 }
 
-type Query {
-  stepCount: Int! @cypher(statement: "MATCH (u:Step) RETURN COUNT(u)")
-}
+#type Query {
+#  stepCount: Int! @cypher(statement: "MATCH (u:Step) RETURN COUNT(u)")
+#}
 
 
 type User {
