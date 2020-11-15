@@ -24,6 +24,19 @@ import Title from './Title'
 import TableContainer from '@material-ui/core/TableContainer'
 import { EnhancedTableHead } from './table.head'
 import { EnhancedTableToolbar } from './table.toolbar'
+import ButtonGroup from '@material-ui/core/ButtonGroup'
+import Button from '@material-ui/core/Button'
+import { Edit as EditIcon } from '@material-ui/icons'
+import { Delete as DeleteIcon } from '@material-ui/icons'
+import { Details as DetailsIcon } from '@material-ui/icons'
+import FormGroup from '@material-ui/core/FormGroup'
+import Grid from '@material-ui/core/Grid'
+import FormControlLabel from '@material-ui/core/FormControlLabel'
+import Radio from '@material-ui/core/Radio'
+import RadioGroup from '@material-ui/core/RadioGroup'
+import FormLabel from '@material-ui/core/FormLabel'
+import FormControl from '@material-ui/core/FormControl'
+import Typography from '@material-ui/core/Typography'
 
 
 // TODO Collapsible table as show details
@@ -43,6 +56,16 @@ function ListOfNode() {
   const [selected, setSelected] = React.useState([])
   const [page, setPage] = React.useState(0)
   const [rowsPerPage, setRowsPerPage] = React.useState(5)
+
+  //TODO get default from config?
+  const [valueMainSelection, setValueMainSelection] = React.useState('Person');
+
+  const handleChangeRadio = (event) => {
+    setValueMainSelection(event.target.value)
+  };
+
+
+
 
   const getFilter = () => {
     return filterState.nameFilter.length > 0
@@ -109,6 +132,53 @@ function ListOfNode() {
     setPage(0)
   }
 
+
+
+  // TODO copy above: Peopel and Movie.length
+  // add datathen length
+
+  // const [selectedNode, setSelectedNode] = React.useState('none')
+  // const [selectedQuery, setSelectedQuery] = React.useState('none')
+  // const [selectedQueryDataLength, setSelectedQueryDataLength] = React.useState('none')
+  //
+  // const handleSelectNode = (name) => {
+  //   let newSelectedNode
+  //   let newSelectedQuery
+  //   let newSelectedQueryDataLength
+  //
+  //   if (name === 'Person') {
+  //     newSelectedNode = 'Person'
+  //     newSelectedQuery = 'GET_PERSONS'
+  //     newSelectedQueryDataLength='data.Person'
+  //   } else if (name === 'Movie') {
+  //     newSelectedNode = 'Movie'
+  //     newSelectedQuery = 'GET_MOVIES'
+  //     newSelectedQueryDataLength='data.Movie'
+  //   } else   {
+  //     newSelectedNode = ''
+  //     newSelectedQuery = ''
+  //     newSelectedQueryDataLength=''
+  //   }
+  //   setSelectedNode(newSelectedNode)
+  //   setSelectedQuery(newSelectedQuery)
+  //   setSelectedQueryDataLength(newSelectedQueryDataLength)
+  // }
+
+
+
+  // useEffect(()=>{
+  //   handleSelectNode(valueMainSelection)
+  //   console.log('selected radio: ' + valueMainSelection);
+  //   console.log('selected NODE: ' + selectedNode);
+  //   console.log('selected Query: ' + selectedQuery);
+  //   // console.log('selected data length: ' + dataLengthw);
+  // })
+
+
+
+
+
+
   const { loading, data, error } = useQuery(GET_PERSONS, {
     variables: {
       first: rowsPerPage,
@@ -130,48 +200,90 @@ function ListOfNode() {
   return (
     <React.Fragment>
       <Paper>
-        <Title>Persons</Title>
+
+
+        <Typography
+          className="Title"
+          component="div"
+        >Persons
+        </Typography>
+        <Grid
+          container
+          direction="row"
+          justify="flex-start"
+          alignItems="center"
+        >
+          <FormControl>
+            <FormLabel
+            >Node</FormLabel>
+            <RadioGroup
+              row
+              aria-label="nodes"
+              name="node"
+              value={valueMainSelection}
+              onChange={handleChangeRadio}>
+              <FormControlLabel value="Person" control={<Radio />} label="Person" />
+              <FormControlLabel value="Movie" control={<Radio />} label="Movie" />
+              <FormControlLabel value="Other" control={<Radio />} label="Other" />
+              <FormControlLabel value="disabled" disabled control={<Radio />} label="(Disabled option)" />
+            </RadioGroup>
+          </FormControl>
+        </Grid>
+        <Grid
+          container
+          direction="row"
+          justify="space-evenly"
+          alignItems="center"
+        >
+
+          <TextField
+            id="search"
+            label="Name Contains"
+            value={filterState.nameFilter}
+            onChange={handleFilterChange('nameFilter')}
+            margin="normal"
+            variant="outlined"
+            type="text"
+          />
+
+          <FormGroup
+            row
+            onSubmit={(e) => {
+              e.preventDefault()
+              createStep({ variables: { name: input.value } })
+              input.value = ''
+              window.location.reload()
+            }}
+          >
+            <TextField
+              placeholder="Enter name of new node"
+              margin="normal"
+              variant="outlined"
+              type="text"
+              ref={(node) => {
+                input = node
+              }}
+            ></TextField>
+            <Button
+              type="submit">
+              Submit
+            </Button>
+          </FormGroup>
+
+
+        </Grid>
+
 
         {loading && !error && <p>Loading...</p>}
         {error && !loading && <p>Error</p>}
         {data && !loading && !error && (
           <React.Fragment>
-            {/*TODO style as others*/}
-            <form
-              onSubmit={(e) => {
-                e.preventDefault()
-                createStep({ variables: { name: input.value } })
-                input.value = ''
-                window.location.reload()
-              }}
-            >
-              <input
-                className="form-control"
-                type="text"
-                placeholder="Enter todo"
-                ref={(node) => {
-                  input = node
-                }}
-              ></input>
-              <button className="btn btn-primary px-5 my-2" type="submit">
-                Submit
-              </button>
-            </form>
 
-            <TextField
-              id="search"
-              label="Process Text Contains"
-              value={filterState.nameFilter}
-              onChange={handleFilterChange('nameFilter')}
-              margin="normal"
-              variant="outlined"
-              type="text"
-            />
 
             <EnhancedTableToolbar numSelected={selected.length} />
             <TableContainer>
               <Table>
-                {/*TODO 13 Slected (7 not visible)*/}
+                {/*TODO 13 Selected (7 not visible)*/}
                 <EnhancedTableHead
                   numSelected={selected.length}
                   order={order}
@@ -206,27 +318,42 @@ function ListOfNode() {
                         <TableCell align="right">{row.born}</TableCell>
                         {/*<TableCell align="right">{row.order}</TableCell>*/}
                         <TableCell align="center">
-                          <button
-                            className="btn btn-sm rounded-circle float-right"
-                            onClick={() => {
-                              console.log('Edit: ' + row.id)
-                              // TODO add action
-                              // window.location.reload();
-                            }}
-                          >
-                            Edit
-                          </button>
-                          <button
-                            className="btn btn-sm btn-danger rounded-circle float-right"
-                            onClick={() => {
-                              console.log('Delete: ' + row.id)
-                              // deleteStep({ variables: { id: row.id } });
-                              // window.location.reload();
-                              // TODO add action
-                            }}
-                          >
-                            X
-                          </button>
+
+                          <ButtonGroup
+                            aria-label="outlined primary button group">
+                            <Button
+                              // className="btn btn-sm rounded-circle float-right"
+                              onClick={() => {
+                                console.log('Details: ' + row.id)
+                                // TODO add action
+                                // window.location.reload();
+                              }}
+                            >
+                              <DetailsIcon />
+                            </Button>
+                            <Button
+                              // className="btn btn-sm rounded-circle float-right"
+                              onClick={() => {
+                                console.log('Edit: ' + row.id)
+                                // TODO add action
+                                // window.location.reload();
+                              }}
+                            >
+                              <EditIcon />
+                            </Button>
+                            <Button
+                              // className="btn btn-sm btn-danger rounded-circle float-right"
+                              onClick={() => {
+                                console.log('Delete: ' + row.id)
+                                // deleteStep({ variables: { id: row.id } });
+                                // window.location.reload();
+                                // TODO add action
+                              }}
+                            >
+                              <DeleteIcon />
+                            </Button>
+                          </ButtonGroup>
+
                         </TableCell>
                       </TableRow>
                     )

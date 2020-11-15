@@ -16,6 +16,8 @@ export default function GraphData() {
         {/*<Paper>*/}
           <p>Data from Movie Base</p>
           <ListOfNode />
+        {/*<p>Data from Movie Base</p>*/}
+        {/*<ListOfNodeMovie />*/}
         {/*</Paper>*/}
 
         <p>Bare bone</p>

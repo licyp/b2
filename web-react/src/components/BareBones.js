@@ -25,6 +25,9 @@ export default function BareBones() {
   const TestData = () => {
     return eval("data." + "Person")
   }
+  // const dataLength = () => {
+  //   return data.PersonCount
+  // }
   // console.log('Data list:' + data)
 
   return (
@@ -32,6 +35,8 @@ export default function BareBones() {
       <div>
         <Paper>
           <div>Person TODO this from string
+            {loading && !error && <p>Loading...</p>}
+            {error && !loading && <p>Error</p>}
             {data && !loading && !error && (
               <TableBody>
                 {TestData().map((row, index) => {

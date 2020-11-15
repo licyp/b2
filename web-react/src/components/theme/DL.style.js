@@ -15,8 +15,13 @@ const themeLight = {
   fontSizeHeading: 16,
   fontSizeTitle: 22,
 
-  tableSize: 'medium',
+  tableSize: 'small',
+  none: 'none',
+  zero: 0,
 
+  paddingTitle: 20,
+  paddingLabel: 8,
+  padding: 6,
   paddingLeft: 16,
   paddingRight: 6,
   marginBottom: 16,
@@ -50,7 +55,12 @@ const themeDark = {
   fontSizeTitle: 22,
 
   tableSize: 'small',
+  none: 'none',
+  zero: 0,
 
+  paddingTitle: 20,
+  paddingLabel: 8,
+  padding: 6,
   paddingLeft: 16,
   paddingRight: 6,
   marginBottom: 16,
