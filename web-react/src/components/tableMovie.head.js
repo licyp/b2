@@ -2,7 +2,7 @@ import { Checkbox, TableCell, TableHead, TableRow, TableSortLabel } from '@mater
 import PropTypes from 'prop-types'
 import React from 'react'
 
-import {HeadCellsPerson} from './table.head.cells'
+import {HeadCellsMovie} from './table.head.cells'
 
 // TODO data.heading as prop
 // TODO filter at header headCells
@@ -11,7 +11,7 @@ import {HeadCellsPerson} from './table.head.cells'
 // TODO scroll of No. of rows or columns are greater then
 // TODO when intermediate on click unselect all
 
-function EnhancedTableHead(props) {
+function EnhancedTableMovieHead(props) {
   const { onSelectAllClick, order, orderBy, numSelected, rowCount, onRequestSort } = props;
   const createSortHandler = (property) => (event) => {
     onRequestSort(event, property);
@@ -36,7 +36,7 @@ function EnhancedTableHead(props) {
             inputProps={{ 'aria-label': 'select all' }}
           />
         </TableCell>
-        {HeadCellsPerson.map((headCell) => (
+        {HeadCellsMovie.map((headCell) => (
           <TableCell
             key={headCell.id}
             align={headCell.numeric ? 'right' : 'left'}
@@ -66,7 +66,7 @@ function EnhancedTableHead(props) {
   );
 }
 
-EnhancedTableHead.propTypes = {
+EnhancedTableMovieHead.propTypes = {
   numSelected: PropTypes.number.isRequired,
   onRequestSort: PropTypes.func.isRequired,
   onSelectAllClick: PropTypes.func.isRequired,
@@ -76,5 +76,5 @@ EnhancedTableHead.propTypes = {
 };
 
 export {
-  EnhancedTableHead,
+  EnhancedTableMovieHead,
 };

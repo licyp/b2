@@ -4,8 +4,8 @@ import './index.css'
 import App from './App'
 import registerServiceWorker from './registerServiceWorker'
 import { ApolloProvider, ApolloClient, InMemoryCache } from '@apollo/client'
-import { ThemeProviderDL } from './components/theme/DL_context'
-import { WrapperDL } from './components/theme/DL_apply'
+import { ThemeProviderDL } from './theme/DL_context'
+import { WrapperDL } from './theme/DL_apply'
 
 const client = new ApolloClient({
   uri: process.env.REACT_APP_GRAPHQL_URI || '/graphql',
