@@ -32,30 +32,6 @@ const styles = (theme)  => ({
   },
 })
 
-const useToolbarStyles = makeStyles((theme) => ({
-  // root: {
-  //   paddingLeft: theme.spacing(2),
-  //   paddingRight: theme.spacing(1),
-  //   // fontSize: 15,
-  // },
-  // highlight:
-  //   theme.palette.type === 'light'
-  //     ? {
-  //       color: theme.palette.secondary.main,
-  //       backgroundColor: lighten(theme.palette.secondary.light, 0.85),
-  //     }
-  //     : {
-  //       color: theme.palette.text.primary,
-  //       backgroundColor: theme.palette.secondary.dark,
-  //     },
-  // title: {
-  //   flex: '1 1 100%',
-  //   // fontSize: 20,
-  // },
-}));
-
-
-
 
 const useStyles = makeStyles((theme) => ({
 
@@ -208,6 +184,5 @@ const useStyles = makeStyles((theme) => ({
 
 export {
   useStyles,
-  useToolbarStyles,
   styles,
 }

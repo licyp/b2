@@ -2,8 +2,6 @@ import React from 'react'
 
 import { Switch, Route, BrowserRouter as Router } from 'react-router-dom'
 
-import UserList from './components/UserList'
-
 import clsx from 'clsx'
 import { makeStyles } from '@material-ui/core/styles'
 import {
@@ -28,16 +26,16 @@ import {
   Menu as MenuIcon,
   Dashboard as DashboardIcon,
   People as PeopleIcon,
+  BubbleChart as BubbleChartIcon,
 } from '@material-ui/icons'
-import Dashboard from './components/Dashboard'
-import BusinessListPage from './components/BusinessListPage'
+import GraphData from './components/GraphData'
 
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
       {'Copyright © '}
-      <MUILink color="inherit" href="https://grandstack.io/">
-        Your GRANDstack App Name Here
+      <MUILink color="inherit" href="https://licyp.com/">
+        licyp
       </MUILink>{' '}
       {new Date().getFullYear()}
       {'.'}
@@ -167,8 +165,8 @@ export default function App() {
             </IconButton>
             <img
               className={classes.appBarImage}
-              src="img/grandstack.png"
-              alt="GRANDstack logo"
+              src=""
+              alt="licyp logo"
             />
             <Typography
               component="h1"
@@ -177,7 +175,7 @@ export default function App() {
               noWrap
               className={classes.title}
             >
-              Welcome To GRANDstack App
+              welcome to licyp, play with your data
             </Typography>
           </Toolbar>
         </AppBar>
@@ -195,30 +193,12 @@ export default function App() {
           </div>
           <Divider />
           <List>
-            <Link to="/" className={classes.navLink}>
+            <Link to="/graphdata" className={classes.navLink}>
               <ListItem button>
                 <ListItemIcon>
-                  <DashboardIcon />
+                  <BubbleChartIcon />
                 </ListItemIcon>
-                <ListItemText primary="Dashboard" />
-              </ListItem>
-            </Link>
-
-            <Link to="/users" className={classes.navLink}>
-              <ListItem button>
-                <ListItemIcon>
-                  <PeopleIcon />
-                </ListItemIcon>
-                <ListItemText primary="Users" />
-              </ListItem>
-            </Link>
-
-            <Link to="/business" className={classes.navLink}>
-              <ListItem button>
-                <ListItemIcon>
-                  <PeopleIcon />
-                </ListItemIcon>
-                <ListItemText primary="Business" />
+                <ListItemText primary="graph data" />
               </ListItem>
             </Link>
 
@@ -229,10 +209,7 @@ export default function App() {
           <div className={classes.appBarSpacer} />
           <Container maxWidth="lg" className={classes.container}>
             <Switch>
-              <Route exact path="/" component={Dashboard} />
-              <Route exact path="/businesses" component={UserList} />
-              <Route exact path="/users" component={UserList} />
-              <Route exact path="/business" component={BusinessListPage} />
+              <Route exact path="/graphdata" component={GraphData} />
             </Switch>
 
             <Box pt={4}>

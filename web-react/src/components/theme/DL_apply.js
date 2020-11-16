@@ -1,59 +1,5 @@
 import styled from '@emotion/styled'
-import { keyframes } from '@emotion/core'
-import { lighten, makeStyles } from '@material-ui/core/styles'
-import { StyleDL } from './DL.style'
-import { useThemeDL } from './DL_context'
 import React from 'react'
-
-
-// const useStyles = makeStyles(theme => ({
-//   appbar: props => ({
-//     boxShadow: "none",
-//     background: "transparent",
-//     marginTop: theme.spacing(2),
-//     marginBottom: theme.spacing(2),
-//     color: theme.palette.getContrastText(props)
-//   }),
-// }));
-//
-// const classes = useStyles(backgroundColor);
-
-const WrapperDLKK = makeStyles((theme) => ({
-  // MuiPaper: props => ({
-  //   width: '100%',
-  //   // marginBottom: theme.spacing(2),
-  //   backgroundColor: 'rgba(41,31,31,0.95)' + ' !important',
-  //   color: 'rgba(227,227,214,0.95)' + ' !important',
-  //   borderStyle: props.theme.borderStyle,
-  //   borderColor: props.theme.borderColor,
-  //   borderWidth: props.theme.borderWidth,
-  // }),
-  // MuiPaper:{
-  //     backgroundColor: 'rgba(41,31,31,0.95)' + ' !important',
-  //     color: 'rgba(227,227,214,0.95)' + ' !important',
-  //   borderStyle: theme.borderStyle,
-  //   borderColor:  theme.borderColor,
-  //   borderWidth: theme.borderWidth,
-  // },
-  // menuButton: props => ({
-  //   marginRight: props.theme.spacing(2),
-  //   "&:hover": {
-  //     background: 'grey',
-  //     borderStyle: 'groove',
-  //     borderColor: 'coral',
-  //     borderWidth: 7,
-  //   },
-  // }),
-  // title: {
-  //   background: 'blue',
-  //   borderStyle: 'groove',
-  //   borderColor: 'coral',
-  //   borderWidth: 7,
-  //   "&:hover": {
-  //     background: 'pink',
-  //   },
-  // },
-}))
 
 const WrapperDL = styled.div(
   {
@@ -102,11 +48,11 @@ const WrapperDL = styled.div(
 //Table container
     '.MuiTableContainer-root': {
       size: props.theme.tableSize,
-      },
+    },
 //Table
-      '.MuiTable-root': {
-          size: props.theme.tableSize,
-        },
+    '.MuiTable-root': {
+      size: props.theme.tableSize,
+    },
 //Table row
     '.MuiTableRow-root': {
       '&.Mui-selected, &.Mui-selected:hover': {
@@ -135,13 +81,21 @@ const WrapperDL = styled.div(
       color: props.theme.selectedHover + ' !important',
       '&.Mui-checked': {
         color: props.theme.checked + ' !important',
+        '&:hover': {
+          backgroundColor: props.theme.hover,
+          color: props.theme.hoverText + ' !important',
+        },
       },
       '&.MuiCheckbox-indeterminate': {
         color: props.theme.checked + ' !important',
+        '&:hover': {
+          backgroundColor: props.theme.hover,
+          color: props.theme.hoverText + ' !important',
+        },
       },
       '&:hover': {
         backgroundColor: props.theme.hover,
-        // color: props.theme.color + ' !important',
+        color: props.theme.color + ' !important',
       },
     },
 //Menu text and icon
@@ -149,8 +103,8 @@ const WrapperDL = styled.div(
       // backgroundColor: props.theme.selected
       color: props.theme.color,
       '&:hover': {
-        backgroundColor: props.theme.hover,
-        // color: props.theme.color,
+        // backgroundColor: props.theme.hover,
+        color: props.theme.hoverText,
       },
     },
 
@@ -158,8 +112,8 @@ const WrapperDL = styled.div(
       // backgroundColor:  props.theme.background,
       color:  props.theme.color,
       '&:hover': {
-        backgroundColor:  props.theme.hover,
-        // color:  props.theme.color,
+        // backgroundColor:  props.theme.hover,
+        color:  props.theme.hoverText,
       },
     },
 
@@ -186,9 +140,10 @@ const WrapperDL = styled.div(
       fontSize: props.theme.fontSize,
       // backgroundColor:  props.theme.background,
       color:  props.theme.color,
+      // TODO add hover effect to triangle
       '&:hover': {
-        backgroundColor:  props.theme.hover,
-        // color:  props.theme.color,
+        // backgroundColor:  props.theme.hover,
+        color:  props.theme.hoverText,
       },
     },
 
@@ -237,7 +192,7 @@ const WrapperDL = styled.div(
         color:  props.theme.hover,
       },
       '& svg': {
-        color: props.theme.active + ' !important',
+        color: props.theme.color + ' !important',
         '&:hover': {
           color: props.theme.hoverText + ' !important',
         },
@@ -265,7 +220,83 @@ const WrapperDL = styled.div(
     '.MuiTooltip':{
 // TODO
     },
+// Title
+    '.Title':{
+      padding: props.theme.paddingTitle,
+      fontSize: props.theme.fontSizeTitle,
+    },
+// Radio
+    '.MuiFormGroup-root': {
+      paddingLeft: props.theme.paddingLeft,
+      paddingRight: props.theme.paddingRight,
+    },
+
+    '.MuiFormLabel-root':{
+      color: props.theme.color,
+      paddingLeft: props.theme.paddingLeft,
+      paddingRight: props.theme.paddingRight,
+    },
+
+    '.MuiFormLabel-root.Mui-focused':{
+      color: props.theme.color,
+    },
+
+    '.MuiFormControlLabel-root':{
+      '&:hover': {
+        color: props.theme.hoverText,
+      },
+      '.Mui-disabled': {
+        color: props.theme.disabled,
+      },
+    },
+
+    '.MuiRadio-colorSecondary': {
+      '&.Mui-checked': {
+        color: props.theme.active ,
+      },
+    },
+// Text input
+//     TODO change style of pop up and notched and hover border
+    '.MuiOutlinedInput-notchedOutline': {
+      borderStyle: props.theme.borderStyle,
+      borderColor: props.theme.disabled,
+      borderWidth: props.theme.borderWidth,
+    },
+
+    '.MuiInputBase-input':{
+      color: props.theme.active ,
+    },
+
+// Button
+    '.MuiButtonGroup-grouped':{
+      borderColor: props.theme.disabled,
+      borderStyle: props.theme.none,
+      color:  props.theme.color,
+      padding: props.theme.zero,
+    },
+
+    '.MuiButtonGroup-groupedOutlinedPrimary':{
+      '&:hover': {
+        borderColor: props.theme.hoverText,
+        borderStyle: props.theme.none,
+        color: props.theme.hoverText ,
+      },
+    },
+
+    '.MuiButtonBase-root':{
+      //TODO add border around teh button
+      color:  props.theme.color,
+      '&:hover': {
+        color: props.theme.hoverText ,
+      },
+    },
+// Copyright
+    '.MuiTypography-root':{
+      color:  props.theme.color,
+    },
+
+
   })
 )
 
-export { WrapperDL, WrapperDLKK }
+export { WrapperDL }
