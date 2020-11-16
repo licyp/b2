@@ -30,10 +30,15 @@ The detailed page has a visualization with option to increase or decrease the di
     yarn install
     ```
 
-2.  Create a [Neo4j Sandbox](https://neo4j.com/sandbox) instance with **'Movies'** pre built option.
+2.  Create a Neo4j database:
 
-3.  Find `username`, `password` and `Bolt URL` under **Connection Details** tab and copy them to
-    `./api/.env`
+    Neo4j Sandbox:
+    1. [Neo4j Sandbox](https://neo4j.com/sandbox) instance with **'Movies'** pre built option. Make sure that `.api/.env` has a line like: `NEO4J_URI=bolt://18.204.14.182:33815`.
+    2.  Find `username`, `password` and `Bolt URL` under *'Connection Details'* tab and copy them to `./api/.env`.
+    
+    Neo4j Desktop:
+    1. [Neo4j Desktop](https://neo4j.com/download/) instance with *'APOC'* plugin. Open *'Neo4j Browser'* and run `:play movie-graph`, follow the instruction to create **'Movies'** data set, for more check out [Built-In Examples](https://neo4j.com/developer/example-data/). Make sure that `.api/.env` has the exact line: `NEO4J_URI=bolt://localhost:7687`.
+    2.  Use `username`, `password` and `Bolt URL` to update `./api/.env`.
 
     Note: `.env` should not be part of public repository, it was left out from `.gitignore` for easy start.
 
