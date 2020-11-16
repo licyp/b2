@@ -1,6 +1,13 @@
-const HeadCells = [
+const HeadCellsPerson = [
   { id: 'name', numeric: false, disablePadding: true, label: 'Person Name' },
   { id: 'born', numeric: true, disablePadding: false, label: 'Born in Year' },
+  { id: 'action', numeric: false, disablePadding: false, label: 'Action' },
+  // TODO add tooltip
+];
+const HeadCellsMovie = [
+  { id: 'released', numeric: true, disablePadding: false, label: 'Released Year' },
+  { id: 'tagline', numeric: false, disablePadding: false, label: 'Tagline' },
+  { id: 'title', numeric: false, disablePadding: true, label: 'Title' },
   { id: 'action', numeric: false, disablePadding: false, label: 'Action' },
   // TODO add tooltip
 ];
@@ -16,5 +23,6 @@ const HeadCells = [
 
 
 export {
-  HeadCells,
+  HeadCellsPerson,
+  HeadCellsMovie,
 };

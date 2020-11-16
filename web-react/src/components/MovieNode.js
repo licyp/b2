@@ -17,18 +17,17 @@ import {
 import {
   CREATE_STEP,
   REMOVE_STEP,
-  GET_PERSONS,
   GET_MOVIES,
 } from './queries'
-import Title from './Title'
 import TableContainer from '@material-ui/core/TableContainer'
 import { EnhancedTableHead } from './table.head'
+import {EnhancedTableMovieHead} from './tableMovie.head'
 import { EnhancedTableToolbar } from './table.toolbar'
 import ButtonGroup from '@material-ui/core/ButtonGroup'
 import Button from '@material-ui/core/Button'
 import { Edit as EditIcon } from '@material-ui/icons'
 import { Delete as DeleteIcon } from '@material-ui/icons'
-import { Details as DetailsIcon } from '@material-ui/icons'
+import { ExpandMore as ExpandMoreIcon } from '@material-ui/icons'
 import FormGroup from '@material-ui/core/FormGroup'
 import Grid from '@material-ui/core/Grid'
 import FormControlLabel from '@material-ui/core/FormControlLabel'
@@ -49,16 +48,16 @@ import Typography from '@material-ui/core/Typography'
 
 
 
-function ListOfNode() {
+function MovieNode() {
   const [filterState, setFilterState] = React.useState({ nameFilter: '' })
   const [order, setOrder] = React.useState('asc')
-  const [orderBy, setOrderBy] = React.useState('name')
+  const [orderBy, setOrderBy] = React.useState('title')
   const [selected, setSelected] = React.useState([])
   const [page, setPage] = React.useState(0)
   const [rowsPerPage, setRowsPerPage] = React.useState(5)
 
   //TODO get default from config?
-  const [valueMainSelection, setValueMainSelection] = React.useState('Person');
+  const [valueMainSelection, setValueMainSelection] = React.useState('Movie');
 
   const handleChangeRadio = (event) => {
     setValueMainSelection(event.target.value)
@@ -89,7 +88,7 @@ function ListOfNode() {
 
   const handleSelectAllClick = (event) => {
     if (event.target.checked) {
-      const newSelecteds = data.Person.map((n) => n.name)
+      const newSelecteds = data.Movie.map((n) => n.title)
       setSelected(newSelecteds)
       return
     }
@@ -115,12 +114,12 @@ function ListOfNode() {
     setSelected(newSelected)
   }
 
-  const isSelected = (name) => {
-    return selected.indexOf(name) !== -1
+  const isSelected = (title) => {
+    return selected.indexOf(title) !== -1
   }
 
   const dataLength = () => {
-    return data.PersonCount
+    return data.MovieCount
   }
 
   const handleChangePage = (event, newPage) => {
@@ -179,7 +178,7 @@ function ListOfNode() {
 
 
 
-  const { loading, data, error } = useQuery(GET_PERSONS, {
+  const { loading, data, error } = useQuery(GET_MOVIES, {
     variables: {
       first: rowsPerPage,
       offset: rowsPerPage * page,
@@ -205,7 +204,7 @@ function ListOfNode() {
         <Typography
           className="Title"
           component="div"
-        >Persons
+        >Movie
         </Typography>
         <Grid
           container
@@ -284,7 +283,7 @@ function ListOfNode() {
             <TableContainer>
               <Table>
                 {/*TODO 13 Selected (7 not visible)*/}
-                <EnhancedTableHead
+                <EnhancedTableMovieHead
                   numSelected={selected.length}
                   order={order}
                   orderBy={orderBy}
@@ -293,17 +292,17 @@ function ListOfNode() {
                   rowCount={dataLength()}
                 />
                 <TableBody>
-                  {data.Person.map((row, index) => {
-                    const isItemSelected = isSelected(row.name)
+                  {data.Movie.map((row, index) => {
+                    const isItemSelected = isSelected(row.title)
                     const labelId = `enhanced-table-checkbox-${index}`
                     return (
                       <TableRow
                         hover
-                        onClick={(event) => handleClick(event, row.name)}
+                        onClick={(event) => handleClick(event, row.title)}
                         role="checkbox"
                         aria-checked={isItemSelected}
                         tabIndex={-1}
-                        key={row.name}
+                        key={row.title}
                         selected={isItemSelected}
                       >
                         {/*TODO add cells based on data landscape*/}
@@ -314,9 +313,9 @@ function ListOfNode() {
                           />
                         </TableCell>
                         {/*<TableCell align="right">{row.id}</TableCell>*/}
-                        <TableCell align="right">{row.name}</TableCell>
-                        <TableCell align="right">{row.born}</TableCell>
-                        {/*<TableCell align="right">{row.order}</TableCell>*/}
+                        <TableCell align="right">{row.title}</TableCell>
+                        <TableCell align="right">{row.released}</TableCell>
+                        <TableCell align="right">{row.tagline}</TableCell>
                         <TableCell align="center">
 
                           <ButtonGroup
@@ -329,7 +328,7 @@ function ListOfNode() {
                                 // window.location.reload();
                               }}
                             >
-                              <DetailsIcon />
+                              <ExpandMoreIcon />
                             </Button>
                             <Button
                               // className="btn btn-sm rounded-circle float-right"
@@ -377,4 +376,4 @@ function ListOfNode() {
   )
 }
 
-export default ListOfNode
+export default MovieNode

@@ -8,7 +8,7 @@ import {
 
 import { useQuery } from '@apollo/client'
 
-import { GET_PERSONS } from './queries'
+import { GET_MOVIES, GET_PERSONS } from './queries'
 
 
 export default function BareBones() {
@@ -18,12 +18,12 @@ export default function BareBones() {
   const [page, setPage] = React.useState(0)
   const [rowsPerPage, setRowsPerPage] = React.useState(5)
 
-  const { loading, data, error } = useQuery(GET_PERSONS, {})
+  const { loading, data, error } = useQuery(GET_MOVIES, {})
 
 // TODO get target from text string
   const Test="Person";
   const TestData = () => {
-    return eval("data." + "Person")
+    return eval("data." + "Movie")
   }
   // const dataLength = () => {
   //   return data.PersonCount
@@ -42,7 +42,7 @@ export default function BareBones() {
                 {TestData().map((row, index) => {
                   return (
                     <TableRow key={index}>
-                      <TableCell>{row.name}</TableCell>
+                      <TableCell>{row.title}</TableCell>
                     </TableRow>
                   )
                 })}
