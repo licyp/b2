@@ -13,13 +13,13 @@ const client = new ApolloClient({
 })
 
 const Main = () => (
-  <ThemeProviderDL>
+   <ThemeProviderDL>
     <WrapperDL>
       <ApolloProvider client={client}>
         <App />
       </ApolloProvider>
-    </WrapperDL>
-  </ThemeProviderDL>
+      </WrapperDL>
+    </ThemeProviderDL>
 )
 
 ReactDOM.render(<Main />, document.getElementById('root'))

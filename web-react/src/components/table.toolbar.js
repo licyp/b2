@@ -51,7 +51,15 @@ const EnhancedTableToolbar = (props) => {
         </Tooltip>
       ) : (
         <Tooltip
-          title="Filter list"
+          title={
+            <React.Fragment className="MuiTooltipLicyp">
+              <Typography color="inherit" className="MuiTooltipLicyp">Tooltip with HTML</Typography>
+              <em>{"And here's"}</em> <b>{'some'}</b> <u>{'amazing content'}</u>.{' '}
+              {"It's very engaging. Right?"}
+            </React.Fragment>
+          }
+          // TODO styled tooltip
+          className="MuiTooltipLicyp"
         >
           <IconButton
             aria-label="filter list"
