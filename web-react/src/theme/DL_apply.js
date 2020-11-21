@@ -1,5 +1,6 @@
 import styled from '@emotion/styled'
 import React from 'react'
+import { calculateActiveTickIndex } from 'recharts/lib/util/ChartUtils'
 
 const WrapperDL = styled.div(
   {
@@ -16,286 +17,319 @@ const WrapperDL = styled.div(
     },
 
     '.MuiPaper-root': {
+      // TODO min with of app
       marginLeft: 8,
       marginRight: 8,
       marginTop: 24,
       overflowX: 'auto',
       margin: 'auto',
     },
-  },
 
-  (props) => ({
-//General
-    '.MuiContainer-root': {
-      backgroundColor: props.theme.background,
-      color: props.theme.color,
-    },
 
-    '.MuiDivider-root': {
-      backgroundColor: props.theme.divider,
-    },
-
-    '.MuiPaper-root': {
-      fontSize: props.theme.fontSize,
-      backgroundColor: props.theme.background,
-      color: props.theme.color,
-      borderStyle: props.theme.borderStyle,
-      borderColor: props.theme.borderColor,
-      borderWidth: props.theme.borderWidth,
-      marginBottom: props.theme.marginBottom,
-      boxShadow: props.theme.boxShadow,
-    },
-//Table container
-    '.MuiTableContainer-root': {
-      size: props.theme.tableSize,
-    },
-//Table
-    '.MuiTable-root': {
-      size: props.theme.tableSize,
-    },
-//Table row
-    '.MuiTableRow-root': {
-      '&.Mui-selected, &.Mui-selected:hover': {
-        backgroundColor: props.theme.selectedHover
-        // color: props.theme.color + ' !important',
+    '.MuiIconButton-label': {
+      // TODO add drawer to hide button
+      '&:hidden': {
+        display: 'none'
       },
-      '&.Mui-selected': {
-        // backgroundColor: props.theme.selected + ' !important',
-        color: props.theme.selected + ' !important',
-      },
-      '&:hover': {
-        backgroundColor: props.theme.hover + ' !important',
-        // color: props.theme.color + ' !important',
+    },
+
+    '.MuiGrid-root': {
+      background: 'blue',
+      color: 'green',
+    },
+
+    '.MuiToolbar-root': {
+      display: 'flex',
+      justifyContent: 'space-between',
+    },
+
+    '.MuiTablePagination-root': {
+      display: 'flex',
+      justifyContent: 'flex-end',
+      '&.MuiTableCell-root': {
+        border: 'none',
       },
     },
 
     '.MuiTableCell-root': {
-      fontSize: props.theme.fontSize,
-      // body: 'rgba(19,50,208,0.95)'+ ' !important',
-      color: props.theme.color,
-      borderBottomColor: props.theme.borderBottomColor,
-    },
-// Check box
-    '.MuiCheckbox-colorSecondary': {
-      fontSize: props.theme.fontSize,
-      color: props.theme.selectedHover + ' !important',
-      '&.Mui-checked': {
-        color: props.theme.checked + ' !important',
-        '&:hover': {
-          backgroundColor: props.theme.hover,
-          color: props.theme.hoverText + ' !important',
-        },
+      borderLeftWidth: 1,
+      borderLeftStyle: 'solid',
+      borderRightWidth: 1,
+      borderRightStyle: 'solid',
+      '&:last-child': {
+        borderRightStyle: 'none',
       },
-      '&.MuiCheckbox-indeterminate': {
-        color: props.theme.checked + ' !important',
-        '&:hover': {
-          backgroundColor: props.theme.hover,
-          color: props.theme.hoverText + ' !important',
-        },
-      },
-      '&:hover': {
-        backgroundColor: props.theme.hover,
-        color: props.theme.color + ' !important',
+      '&:first-child': {
+        borderLeftStyle: 'none',
       },
     },
-//Menu text and icon
-    '.MuiIconButton-root': {
-      // backgroundColor: props.theme.selected
-      color: props.theme.color,
-      '&:hover': {
-        // backgroundColor: props.theme.hover,
-        color: props.theme.hoverText,
+  },
+
+  (props) => ({
+    '.makeStyles-root-1': {
+      background: props.theme.backgroundPaper,
+      color: props.theme.textMain,
+    },
+
+    '.MuiTypography-root': {
+      // background: 'inherit',
+      color: 'inherit',
+    },
+
+    '.MuiDivider-root': {
+      backgroundColor: props.theme.borderMain,
+    },
+
+    '.MuiDrawer-paperAnchorDockedLeft': {
+      borderRightColor: props.theme.borderMain,
+    },
+
+    '.MuiContainer-root': {
+      background: 'inherit',
+      color: 'inherit',
+    },
+
+    '.MuiPaper-root': {
+      background: 'inherit',
+      color: 'inherit',
+      boxShadow: props.theme.boxShadow3
+    },
+
+    '.MuiGrid-root': {
+      background: 'inherit',
+      color: 'inherit',
+    },
+
+    '.MuiFormControl-root': {
+      background: 'inherit',
+      color: 'inherit',
+    },
+
+    '.MuiFormControlLabel-label': {
+      background: 'inherit',
+      color: 'inherit',
+      '&.Mui-disabled': {
+        background: 'inherit',
+        color: props.theme.textDisabled,
       },
     },
 
-    '.MuiListItem-button': {
-      // backgroundColor:  props.theme.background,
-      color:  props.theme.color,
+    '.MuiFormLabel-root': {
+      background: 'inherit',
+      color: 'inherit',
+      '&.Mui-focused': {
+        background: 'inherit',
+        color: props.theme.textActive,
+      },
+    },
+
+    '.MuiInputBase-root': {
+      background: 'inherit',
+      color: 'inherit',
+    },
+
+    '.MuiOutlinedInput-root': {
+      background: props.theme.backgroundInput,
+      color: props.theme.textInput,
+      '&:hover fieldset': {
+        borderColor: props.theme.textActive,
+      },
+      '&.Mui-focused': {
+        '.MuiOutlinedInput-notchedOutline': {
+          background: props.theme.backgroundInputFocus,
+          borderColor: props.theme.borderFocus,
+        },
+      },
+      '.MuiOutlinedInput-notchedOutline': {
+        background: props.theme.backgroundInput,
+        borderColor: props.theme.borderMain,
+      },
+    },
+
+    '.MuiButtonGroup-root': {
+      background: 'inherit',
+      color: 'inherit',
+    },
+
+    '.MuiButton-contained': {
+      background: props.theme.maskHoverSelected,
+      color: 'inherit',
+      boxShadow: props.theme.boxShadow1
+    },
+
+    '.MuiButtonBase-root': {
+      // background: 'inherit',
+      color: 'inherit',
       '&:hover': {
-        // backgroundColor:  props.theme.hover,
-        color:  props.theme.hoverText,
+        background: props.theme.maskHover,
+        color: props.theme.textHover,
+      },
+      '&.Mui-disabled': {
+        background: 'inherit',
+        color: props.theme.textDisabled,
+      },
+      '&.Mui-checked': {
+        background: 'inherit',
+        color: props.theme.textActive,
+        '&:hover': {
+          background: props.theme.maskHover,
+          color: 'inherit',
+        },
+      },
+    },
+
+    '.MuiButton-label': {
+      // background: 'inherit',
+      color: props.theme.textMain,
+      '&:hover': {
+        // background:'inherit',
+        color: props.theme.textHover,
+      },
+    },
+
+    '.MuiButton-outlined': {
+      borderTopColor: props.theme.borderMainLight + ' !important',
+      borderRightColor: props.theme.borderMainLight + ' !important',
+      borderBottomColor: props.theme.borderMainLight + ' !important',
+      borderLeftColor: props.theme.borderMainLight + ' !important',
+    },
+
+    '.MuiListItem-root': {
+      background: 'inherit',
+      color: 'inherit',
+      '&:hover': {
+        background: props.theme.maskHover,
+        color: props.theme.textHover,
+      },
+      '&.Mui-disabled': {
+        background: 'inherit',
+        color: props.theme.textDisabled,
       },
     },
 
     '.MuiListItemIcon-root': {
-      // backgroundColor:  props.theme.background,
-      color:  props.theme.color,
-      // '&:hover': {
-      //   backgroundColor:  props.theme.hover,
-      //   // color:  props.theme.color,
-      // },
-    },
-//Pagination
-    '.MuiTablePagination-root': {
-// TODO
-    },
-
-    '.MuiTablePagination-caption': {
-      fontSize: props.theme.fontSize,
-      // backgroundColor:  props.theme.background,
-      color:  props.theme.color,
-    },
-
-    '.MuiTablePagination-input': {
-      fontSize: props.theme.fontSize,
-      // backgroundColor:  props.theme.background,
-      color:  props.theme.color,
-      // TODO add hover effect to triangle
+      // background: 'inherit',
+      color: 'inherit',
       '&:hover': {
-        // backgroundColor:  props.theme.hover,
-        color:  props.theme.hoverText,
+        // background: props.theme.maskHover,
+        color: props.theme.textHover,
       },
     },
 
-    '.MuiIconButton-root.Mui-disabled': {
-      color: props.theme.disabled,
+    '.MuiTableContainer-root': {
+      background: props.theme.backgroundTable,
     },
 
-    '.MuiSelect-icon': {
-      // backgroundColor:  props.theme.background,
-      color:  props.theme.color,
-      '&:hover': {
-        backgroundColor:  props.theme.hover,
-        // color:  props.theme.color,
-      },
+    '.MuiTable-root': {
+      background: 'inherit',
     },
-//Header
-    '.MuiTableRow-head': {
-      fontSize: props.theme.fontSizeHeading,
-      '&:hover': {
-        backgroundColor: props.theme.background + ' !important',
-        // color:  props.theme.color + !important',
-      },
+    '.MuiTableHead-root': {
+      background: 'inherit',
     },
 
     '.MuiTableSortLabel-root': {
-      fontSize: props.theme.fontSizeHeading,
-      // backgroundColor:  props.theme.background,
-      color:  props.theme.color,
+      background: 'inherit',
+      color: 'inherit',
       '&:hover': {
-        // backgroundColor:  props.theme.hover,
-        color:  props.theme.hoverText,
+        background: 'inherit' + ' !important',
+        color: props.theme.textHover,
       },
-      '& svg': {
-        color: props.theme.color + ' !important',
+      '&.MuiTableSortLabel-active': {
+        background: 'inherit',
+        color: 'white',
         '&:hover': {
-          color: props.theme.hoverText + ' !important',
+          background: 'inherit',
+          color: props.theme.textHoverActive,
         },
       },
     },
 
-    '.MuiTableSortLabel-active': {
-      // backgroundColor:  props.theme.background,
-      color:  props.theme.active + ' !important',
+    '.MuiTableSortLabel-icon': {
+      background: 'inherit',
+      color: props.theme.textMain,
       '&:hover': {
-        // backgroundColor:  props.theme.hover,
-        color:  props.theme.hover,
-      },
-      '& svg': {
-        color: props.theme.color + ' !important',
-        '&:hover': {
-          color: props.theme.hoverText + ' !important',
-        },
+        background: 'inherit',
+        color: props.theme.textHover + ' !important',
       },
     },
-//Toolbar
-    '.ToolbarBase': {
-      fontSize: props.theme.fontSizeTitle,
-      flex: props.theme.flex,
-      paddingLeft: props.theme.paddingLeft,
-      paddingRight: props.theme.paddingRight,
-      fontSizeTitle: props.theme.fontSizeTitle,
+
+    '.MuiTableSortLabel-root.MuiTableSortLabel-active.MuiTableSortLabel-root.MuiTableSortLabel-active, .MuiTableSortLabel-icon': {
+      background: 'inherit',
+      color: props.theme.textActive + ' !important',
+      '&:hover': {
+        background: 'inherit',
+        color: props.theme.textHoverActive + ' !important',
+      },
+    },
+
+    '.MuiTableBody-root': {
+      background: 'inherit',
+    },
+
+    '.MuiToolbar-root': {
+      background: props.theme.backgroundTable,
     },
 
     '.ToolbarInactive': {
-      // backgroundColor:  props.theme.background,
-      color:  props.theme.color,
+      background: 'inherit',
+      color: props.theme.textMain,
     },
 
-    '.ToolbarActive':{
-      backgroundColor: props.theme.selectedHover + ' !important',
-      color: props.theme.active + ' !important',
+    '.ToolbarActive': {
+      backgroundColor: props.theme.maskSelected + ' !important',
+      color: props.theme.textActive + ' !important',
     },
 
-    '.MuiTooltip':{
-// TODO
-    },
-// Title
-    '.Title':{
-      padding: props.theme.paddingTitle,
-      fontSize: props.theme.fontSizeTitle,
-    },
-// Radio
-    '.MuiFormGroup-root': {
-      paddingLeft: props.theme.paddingLeft,
-      paddingRight: props.theme.paddingRight,
+    '.MuiTablePagination-root': {
+      background: 'inherit',
+      color: 'inherit',
     },
 
-    '.MuiFormLabel-root':{
-      color: props.theme.color,
-      paddingLeft: props.theme.paddingLeft,
-      paddingRight: props.theme.paddingRight,
-    },
-
-    '.MuiFormLabel-root.Mui-focused':{
-      color: props.theme.color,
-    },
-
-    '.MuiFormControlLabel-root':{
+    '.MuiTablePagination-select': {
+      background: 'inherit',
+      color: 'inherit',
       '&:hover': {
-        color: props.theme.hoverText,
+        background: props.theme.maskHover,
+        color: props.theme.textHover,
       },
-      '.Mui-disabled': {
-        color: props.theme.disabled,
+      // TODO style popup list
+    },
+
+    '.MuiTablePagination-selectIcon': {
+      // background: 'inherit',
+      color: 'inherit',
+      // TODO style popup list
+    },
+
+    '.MuiTooltip-tooltip': {
+      background: 'pink' + ' !important',
+      color: 'white' + ' !important',
+      // TODO style tooltip
+    },
+
+    '.MuiTableRow-root': {
+      background: 'inherit',
+      '&.Mui-selected, &.Mui-selected:hover': {
+        background: props.theme.maskHoverSelected + ' !important',
       },
-    },
-
-    '.MuiRadio-colorSecondary': {
-      '&.Mui-checked': {
-        color: props.theme.active ,
+      '&.Mui-selected': {
+        background: props.theme.maskSelected + ' !important',
       },
-    },
-// Text input
-//     TODO change style of pop up and notched and hover border
-    '.MuiOutlinedInput-notchedOutline': {
-      borderStyle: props.theme.borderStyle,
-      borderColor: props.theme.disabled,
-      borderWidth: props.theme.borderWidth,
-    },
-
-    '.MuiInputBase-input':{
-      color: props.theme.active ,
-    },
-
-// Button
-    '.MuiButtonGroup-grouped':{
-      borderColor: props.theme.disabled,
-      borderStyle: props.theme.none,
-      color:  props.theme.color,
-      padding: props.theme.zero,
-    },
-
-    '.MuiButtonGroup-groupedOutlinedPrimary':{
+      // TODO don't hover header row
+      // '&:hover, &:not:MuiTableHead-root': {
+      //   background: props.theme.maskHover + ' !important',
+      // },
       '&:hover': {
-        borderColor: props.theme.hoverText,
-        borderStyle: props.theme.none,
-        color: props.theme.hoverText ,
+        background: props.theme.maskHover + ' !important',
       },
     },
 
-    '.MuiButtonBase-root':{
-      //TODO add border around teh button
-      color:  props.theme.color,
-      '&:hover': {
-        color: props.theme.hoverText ,
-      },
+    '.MuiTableCell-root': {
+      color: 'inherit',
+      borderBottomColor: props.theme.borderMain,
+      borderLeftColor: props.theme.borderMainLight,
+      borderRightColor: props.theme.borderMainLight,
     },
-// Copyright
-    '.MuiTypography-root':{
-      color:  props.theme.color,
-    },
-
-
   })
 )
 

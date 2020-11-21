@@ -34,6 +34,7 @@ import MoviePage from './components/MoviePage'
 import { useAppStyles } from './theme/component.style'
 import Paper from '@material-ui/core/Paper'
 import DarkToggle from './theme/DarkToggle'
+import { themeDark } from './theme/DL.style'
 
 function Copyright() {
   return (
@@ -120,7 +121,7 @@ export default function App() {
               </ListItem>
             </Link>
             <Link to="/person" className={classes.navLink}>
-              <ListItem button>
+              <ListItem button disabled>
                 <ListItemIcon>
                   <PeopleIcon />
                 </ListItemIcon>

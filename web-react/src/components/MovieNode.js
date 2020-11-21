@@ -14,14 +14,10 @@ import {
   Checkbox,
 } from '@material-ui/core'
 
-import {
-  CREATE_STEP,
-  REMOVE_STEP,
-  GET_MOVIES,
-} from './queries'
+import { CREATE_STEP, REMOVE_STEP, GET_MOVIES } from './queries'
 import TableContainer from '@material-ui/core/TableContainer'
 import { EnhancedTableHead } from './table.head'
-import {EnhancedTableMovieHead} from './tableMovie.head'
+import { EnhancedTableMovieHead } from './tableMovie.head'
 import { EnhancedTableToolbar } from './table.toolbar'
 import ButtonGroup from '@material-ui/core/ButtonGroup'
 import Button from '@material-ui/core/Button'
@@ -37,16 +33,11 @@ import FormLabel from '@material-ui/core/FormLabel'
 import FormControl from '@material-ui/core/FormControl'
 import Typography from '@material-ui/core/Typography'
 
-
 // TODO Collapsible table as show details
 // TODO reorder columns
 // TODO add size option
 
 // TODO add label selection for which node type to be displayed
-
-
-
-
 
 function MovieNode() {
   const [filterState, setFilterState] = React.useState({ nameFilter: '' })
@@ -57,14 +48,11 @@ function MovieNode() {
   const [rowsPerPage, setRowsPerPage] = React.useState(5)
 
   //TODO get default from config?
-  const [valueMainSelection, setValueMainSelection] = React.useState('Movie');
+  const [valueMainSelection, setValueMainSelection] = React.useState('Movie')
 
   const handleChangeRadio = (event) => {
     setValueMainSelection(event.target.value)
-  };
-
-
-
+  }
 
   const getFilter = () => {
     return filterState.nameFilter.length > 0
@@ -131,8 +119,6 @@ function MovieNode() {
     setPage(0)
   }
 
-
-
   // TODO copy above: Peopel and Movie.length
   // add datathen length
 
@@ -163,8 +149,6 @@ function MovieNode() {
   //   setSelectedQueryDataLength(newSelectedQueryDataLength)
   // }
 
-
-
   // useEffect(()=>{
   //   handleSelectNode(valueMainSelection)
   //   console.log('selected radio: ' + valueMainSelection);
@@ -172,11 +156,6 @@ function MovieNode() {
   //   console.log('selected Query: ' + selectedQuery);
   //   // console.log('selected data length: ' + dataLengthw);
   // })
-
-
-
-
-
 
   const { loading, data, error } = useQuery(GET_MOVIES, {
     variables: {
@@ -192,19 +171,15 @@ function MovieNode() {
   // const [editStep] = useMutation(EDIT_STEP);
   const [deleteStep] = useMutation(REMOVE_STEP)
 
-  console.log('Data back: ' + data)
-  console.log('Data length: ' + dataLength)
-
+  // console.log('Data back: ' + data)
+  // console.log('Data length: ' + dataLength)
+  console.log('Data selected: ' + selected)
 
   return (
     <React.Fragment>
-      <Paper>
-
-
-        <Typography
-          className="Title"
-          component="div"
-        >Movie
+      <Paper elevation={3}>
+        <Typography className="Title" component="div" variant="h4">
+          Movie
         </Typography>
         <Grid
           container
@@ -213,28 +188,39 @@ function MovieNode() {
           alignItems="center"
         >
           <FormControl>
-            <FormLabel
-            >Node</FormLabel>
+            <FormLabel>Node</FormLabel>
             <RadioGroup
               row
               aria-label="nodes"
               name="node"
               value={valueMainSelection}
-              onChange={handleChangeRadio}>
-              <FormControlLabel value="Person" control={<Radio />} label="Person" />
-              <FormControlLabel value="Movie" control={<Radio />} label="Movie" />
-              <FormControlLabel value="Other" control={<Radio />} label="Other" />
-              <FormControlLabel value="disabled" disabled control={<Radio />} label="(Disabled option)" />
+              onChange={handleChangeRadio}
+            >
+              <FormControlLabel
+                value="Person"
+                control={<Radio />}
+                label="Person"
+              />
+              <FormControlLabel
+                value="Movie"
+                control={<Radio />}
+                label="Movie"
+              />
+              <FormControlLabel
+                value="Other"
+                control={<Radio />}
+                label="Other"
+              />
+              <FormControlLabel
+                value="disabled"
+                disabled
+                control={<Radio />}
+                label="(Disabled option)"
+              />
             </RadioGroup>
           </FormControl>
         </Grid>
-        <Grid
-          container
-          direction="row"
-          justify="space-evenly"
-          alignItems="center"
-        >
-
+        <Grid row container justify="space-evenly" alignItems="center">
           <TextField
             id="search"
             label="Name Contains"
@@ -242,6 +228,7 @@ function MovieNode() {
             onChange={handleFilterChange('nameFilter')}
             margin="normal"
             variant="outlined"
+            size="small"
             type="text"
           />
 
@@ -255,30 +242,30 @@ function MovieNode() {
             }}
           >
             <TextField
-              placeholder="Enter name of new node"
+              label="Enter name of new node"
               margin="normal"
               variant="outlined"
+              size="small"
               type="text"
               ref={(node) => {
                 input = node
               }}
             ></TextField>
-            <Button
-              type="submit">
-              Submit
-            </Button>
+            <ButtonGroup>
+              <Button
+                variant="contained"
+                type="submit"
+              >
+                Create
+              </Button>
+            </ButtonGroup>
           </FormGroup>
-
-
         </Grid>
-
 
         {loading && !error && <p>Loading...</p>}
         {error && !loading && <p>Error</p>}
         {data && !loading && !error && (
           <React.Fragment>
-
-
             <EnhancedTableToolbar numSelected={selected.length} />
             <TableContainer>
               <Table>
@@ -317,9 +304,7 @@ function MovieNode() {
                         <TableCell align="right">{row.released}</TableCell>
                         <TableCell align="right">{row.tagline}</TableCell>
                         <TableCell align="center">
-
-                          <ButtonGroup
-                            aria-label="outlined primary button group">
+                          <ButtonGroup aria-label="outlined primary button group">
                             <Button
                               // className="btn btn-sm rounded-circle float-right"
                               onClick={() => {
@@ -348,11 +333,11 @@ function MovieNode() {
                                 // window.location.reload();
                                 // TODO add action
                               }}
+                              disabled
                             >
                               <DeleteIcon />
                             </Button>
                           </ButtonGroup>
-
                         </TableCell>
                       </TableRow>
                     )

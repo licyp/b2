@@ -192,8 +192,9 @@ function PersonNode() {
   // const [editStep] = useMutation(EDIT_STEP);
   const [deleteStep] = useMutation(REMOVE_STEP)
 
-  console.log('Data back: ' + data)
-  console.log('Data length: ' + dataLength)
+  // console.log('Data back: ' + data)
+  // console.log('Data length: ' + dataLength)
+  console.log('Data selected: ' + selected)
 
 
   return (
