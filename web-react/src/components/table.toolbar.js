@@ -44,6 +44,7 @@ const EnhancedTableToolbar = (props) => {
         >
           <IconButton
             aria-label="delete"
+            // TODO variant="danger"
           >
             <DeleteIcon />
             {/*TODO add functions to buttons*/}

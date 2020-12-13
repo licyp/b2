@@ -1,18 +1,8 @@
 {
-  "name": "grand-stack-starter-api",
+  "name": "licyp-react-practice-api",
   "version": "0.0.1",
-  "description": "API app for GRANDstack",
+  "description": "licyp practice app api",
   "main": "src/index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start:dev": "cross-env DEBUG=neo4j-graphql-js ./node_modules/.bin/nodemon --watch src --ext js,graphql --exec babel-node  src/index.js",
-    "build": "babel src --out-dir build && shx cp .env build 2>/dev/null || : && shx cp src/schema.graphql build",
-    "now-build": "babel src --out-dir build && shx cp src/schema.graphql build",
-    "start": "npm run build && node build/index.js",
-    "seedDb": "./node_modules/.bin/babel-node src/seed/seed-db.js"
-  },
-  "author": "William Lyon",
-  "license": "MIT",
   "dependencies": {
     "@apollo/client": "^3.1.3",
     "apollo-server": "^2.14.2",
@@ -23,6 +13,14 @@
     "neo4j-graphql-js": "^2.14.2",
     "node-fetch": "^2.6.0",
     "react": "^16.13.1"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start:dev": "cross-env DEBUG=neo4j-graphql-js ./node_modules/.bin/nodemon --watch src --ext js,graphql --exec babel-node  src/index.js",
+    "build": "babel src --out-dir build && shx cp .env build 2>/dev/null || : && shx cp src/schema.graphql build",
+    "now-build": "babel src --out-dir build && shx cp src/schema.graphql build",
+    "start": "npm run build && node build/index.js",
+    "seedDb": "./node_modules/.bin/babel-node src/seed/seed-db.js"
   },
   "devDependencies": {
     "@babel/cli": "^7.8.4",

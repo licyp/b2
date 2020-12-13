@@ -1,4 +1,23 @@
 {
+  "name": "licyp-react-practice",
+  "version": "0.0.1",
+  "description": "licyp practice",
+  "dependencies": {
+    "@emotion/core": "^10.0.35",
+    "@emotion/styled": "^10.0.27",
+    "clsx": "^1.1.1",
+    "emotion-theming": "^10.0.27",
+    "react-error-boundary": "^3.1.0",
+    "styled-components": "^5.2.1"
+  },
+  "scripts": {
+    "seedDb": "node scripts/seed.js",
+    "start": "node scripts/start-dev.js",
+    "build": "node scripts/build.js",
+    "format": "find . -name \"*.js\" | grep -v node_modules | grep -v build | xargs prettier --write",
+    "format:log": "find . -name \"*.js\" | grep -v node_modules | grep -v build | xargs prettier",
+    "inferschema:write": "node scripts/inferSchema.js"
+  },
   "devDependencies": {
     "concurrently": "^5.2.0",
     "dotenv": "^8.2.0",
@@ -15,14 +34,6 @@
     "prettier-eslint-cli": "^5.0.0",
     "prop-types": "^15.7.2"
   },
-  "scripts": {
-    "seedDb": "node scripts/seed.js",
-    "start": "node scripts/start-dev.js",
-    "build": "node scripts/build.js",
-    "format": "find . -name \"*.js\" | grep -v node_modules | grep -v build | xargs prettier --write",
-    "format:log": "find . -name \"*.js\" | grep -v node_modules | grep -v build | xargs prettier",
-    "inferschema:write": "node scripts/inferSchema.js"
-  },
   "husky": {
     "hooks": {
       "pre-commit": "lint-staged"
@@ -33,12 +44,5 @@
       "prettier --write",
       "eslint --fix"
     ]
-  },
-  "dependencies": {
-    "@emotion/core": "^10.0.35",
-    "@emotion/styled": "^10.0.27",
-    "clsx": "^1.1.1",
-    "emotion-theming": "^10.0.27",
-    "styled-components": "^5.2.1"
   }
 }

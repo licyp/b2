@@ -35,6 +35,8 @@ import { useAppStyles } from './theme/component.style'
 import Paper from '@material-ui/core/Paper'
 import DarkToggle from './theme/DarkToggle'
 import { themeDark } from './theme/DL.style'
+import ReactPage from './components/ReactPage'
+import ReactPageStart from './components/ReactPageStart'
 
 function Copyright() {
   return (
@@ -138,6 +140,22 @@ export default function App() {
             </Link>
           </List>
           <Divider />
+          <Link to="/react" className={classes.navLink}>
+            <ListItem button>
+              <ListItemIcon>
+                <MovieIcon />
+              </ListItemIcon>
+              <ListItemText primary="learn react" />
+            </ListItem>
+          </Link>
+          <Link to="/start" className={classes.navLink}>
+            <ListItem button>
+              <ListItemIcon>
+                <PeopleIcon />
+              </ListItemIcon>
+              <ListItemText primary="react Start" />
+            </ListItem>
+          </Link>
         </Drawer>
         <main className={classes.content}>
           <div className={classes.appBarSpacer} />
@@ -147,6 +165,8 @@ export default function App() {
               <Route exact path="/graphdata" component={GraphPage} />
               <Route exact path="/person" component={PersonPage} />
               <Route exact path="/movie" component={MoviePage} />
+              <Route exact path="/react" component={ReactPage} />
+              <Route exact path="/start" component={ReactPageStart} />
             </Switch>
 
             <Box pt={4}>

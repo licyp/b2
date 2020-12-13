@@ -188,9 +188,9 @@ function PersonNode() {
   })
 
   let input
-  const [createStep] = useMutation(CREATE_STEP)
+  // const [createStep] = useMutation(CREATE_STEP)
   // const [editStep] = useMutation(EDIT_STEP);
-  const [deleteStep] = useMutation(REMOVE_STEP)
+  // const [deleteStep] = useMutation(REMOVE_STEP)
 
   // console.log('Data back: ' + data)
   // console.log('Data length: ' + dataLength)
@@ -248,12 +248,12 @@ function PersonNode() {
 
           <FormGroup
             row
-            onSubmit={(e) => {
-              e.preventDefault()
-              createStep({ variables: { name: input.value } })
-              input.value = ''
-              window.location.reload()
-            }}
+            // onSubmit={(e) => {
+            //   e.preventDefault()
+            //   createStep({ variables: { name: input.value } })
+            //   input.value = ''
+            //   window.location.reload()
+            // }}
           >
             <TextField
               placeholder="Enter name of new node"

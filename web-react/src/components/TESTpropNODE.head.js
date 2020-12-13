@@ -1,82 +1,150 @@
-import React from 'react'
-import { useQuery, useMutation } from '@apollo/client'
 import {
+  Checkbox, IconButton,
+  Paper,
   Table,
   TableBody,
   TableCell,
   TableHead,
-  TableRow,
-  Tooltip,
-  Paper,
-  TableSortLabel,
-  TextField,
   TablePagination,
-  Checkbox,
+  TableRow,
+  TableSortLabel,
+  TextField, Toolbar, Tooltip,
 } from '@material-ui/core'
+import PropTypes from 'prop-types'
+import React, { useEffect } from 'react'
 
-import { CREATE_STEP, REMOVE_STEP, GET_MOVIES } from './queries'
-import TableContainer from '@material-ui/core/TableContainer'
-// import { EnhancedTableHead } from './table.head'
-import { EnhancedTableHead } from './table.enhancedHead'
-import { EnhancedTableToolbar } from './table.toolbar'
+import { HeadCellsMovie, HeadCellsPerson } from './table.head.cells'
+import { useMutation, useQuery } from '@apollo/client'
+import { CREATE_MOVIE, GET_MOVIES, REMOVE_MOVIE } from './queries'
+import Typography from '@material-ui/core/Typography'
+import Grid from '@material-ui/core/Grid'
+import FormGroup from '@material-ui/core/FormGroup'
 import ButtonGroup from '@material-ui/core/ButtonGroup'
 import Button from '@material-ui/core/Button'
-import { Edit as EditIcon } from '@material-ui/icons'
-import { Delete as DeleteIcon } from '@material-ui/icons'
-import { ExpandMore as ExpandMoreIcon } from '@material-ui/icons'
-import FormGroup from '@material-ui/core/FormGroup'
-import Grid from '@material-ui/core/Grid'
-import FormControlLabel from '@material-ui/core/FormControlLabel'
-import Radio from '@material-ui/core/Radio'
-import RadioGroup from '@material-ui/core/RadioGroup'
-import FormLabel from '@material-ui/core/FormLabel'
-import FormControl from '@material-ui/core/FormControl'
-import Typography from '@material-ui/core/Typography'
+import { EnhancedTableToolbar } from './table.toolbar'
+import TableContainer from '@material-ui/core/TableContainer'
+import { EnhancedTableHead } from './table.enhancedHead'
+import {
+  Delete as DeleteIcon,
+  Edit as EditIcon,
+  ExpandMore as ExpandMoreIcon,
+} from '@material-ui/icons'
 
-// TODO Collapsible table as show details
-// TODO reorder columns
-// TODO add size option
+import FilterListIcon from '@material-ui/icons/FilterList'
 
-// TODO add label selection for which node type to be displayed
+// TODO data.heading as prop
+// TODO filter at header headCells
+// TODO order by multiple headings
+// TODOSticky header row
+// TODO scroll of No. of rows or columns are greater then
+// TODO when intermediate on click unselect all
 
-function MovieNode() {
+function EnhancedNode(props) {
+  const {
+    typeNodeProp,
+    orderProp,
+    orderByProp,
+    headCellsProp,
+    rowsPerPageProp,
+    // errorProp,
+    // loadingProp,
+    // dataProp,
+    dataKeyProp,
+  } = props
+
   const [filterState, setFilterState] = React.useState({ nameFilter: '' })
-  const [order, setOrder] = React.useState('asc')
-  const [orderBy, setOrderBy] = React.useState('title')
+  const [order, setOrder] = React.useState(orderProp)
+  const [orderBy, setOrderBy] = React.useState(orderByProp)
   const [selected, setSelected] = React.useState([])
   const [page, setPage] = React.useState(0)
-  const [rowsPerPage, setRowsPerPage] = React.useState(5)
+  const [rowsPerPage, setRowsPerPage] = React.useState(rowsPerPageProp)
 
-  //TODO get default from config?
-  const [valueMainSelection, setValueMainSelection] = React.useState('Movie')
-
-  const handleChangeRadio = (event) => {
-    setValueMainSelection(event.target.value)
-  }
+  const headCellsData = headCellsProp
+  const typeNode = typeNodeProp
+  const dataKeyId = dataKeyProp
 
   const getFilter = () => {
     return filterState.nameFilter.length > 0
-      ? { name_contains: filterState.nameFilter }
+      ? // TODO add fuzzy search( or def heading)
+        // TODO fuzzy filter, but field:date + name:test field???? maybe
+        // TODO as prop
+        { title_contains: filterState.nameFilter }
       : {}
   }
 
-  const handleFilterChange = (filterName) => (event) => {
-    const val = event.target.value
-    setFilterState((oldFilterState) => ({
-      ...oldFilterState,
-      [filterName]: val,
-    }))
+  // client.query({ query: YOUR_QUERY, variables: { });
+  // TODO as prop
+  const { loading, data, error } = useQuery(GET_MOVIES, {
+    variables: {
+      first: rowsPerPage,
+      offset: rowsPerPage * page,
+      orderBy: orderBy + '_' + order,
+      filter: getFilter(),
+    },
+  })
+
+
+  const dataLength = () => {
+    return data.TotalCount
+  }
+  const dataTable = () => {
+    // return data.Movie
+    return eval('data.' + typeNode)
   }
 
-  const handleRequestSort = (event, property) => {
-    const isAsc = orderBy === property && order === 'asc'
-    setOrder(isAsc ? 'desc' : 'asc')
-    setOrderBy(property)
+  const dataKey = () => {
+    return 'row.' + dataKeyId
   }
+
+
+  let input
+  const [createNode] = useMutation(CREATE_MOVIE)
+  const [deleteNode] = useMutation(REMOVE_MOVIE)
+
+
+
+  // doSomething= function () {
+  //   console.log('ddd')
+  // }
+
+  function doSomething() {
+    // alert('it works!');
+    // e.preventDefault();
+    console.log('ddd')
+  }
+  // function deleteOneNode(row) {
+  //   console.log('Delete: ' + row.id)
+  //   deleteNode({ variables: { title: row.title } });
+  //   window.location.reload();
+  // }
+  // const deleteOneNode = (row) =>{
+  //   console.log('Delete: ' + row.id)
+  //   deleteNode({ variables: { title: row.title } });
+  //   window.location.reload();
+  // }
+
+
+
+
+  // onSubmit={(e) => {
+  //   e.preventDefault()
+  //   // TODO get attributes as props
+  //   createNode({ variables: { title: input.value } })
+  //   input.value = ''
+  //   window.location.reload()
+  // }}
+
+
+
+  // console.log('Data back: ' + data)
+  // console.log('Data length: ' + dataLength)
+  console.log('Data selected: ' + selected)
 
   const handleSelectAllClick = (event) => {
     if (event.target.checked) {
-      const newSelecteds = data.Movie.map((n) => n.title)
+      // TODO if blank select visible, if interim select all, if checked unselect all
+      // const newSelecteds = dataTable().map((n) => n.title)
+      const newSelecteds = dataTable().map((n) => eval('n.' + dataKeyId))
       setSelected(newSelecteds)
       return
     }
@@ -102,12 +170,9 @@ function MovieNode() {
     setSelected(newSelected)
   }
 
-  const isSelected = (title) => {
-    return selected.indexOf(title) !== -1
-  }
-
-  const dataLength = () => {
-    return data.MovieCount
+  const isSelected = (name) => {
+    return selected.indexOf(name) !== -1
+    console.log(selected)
   }
 
   const handleChangePage = (event, newPage) => {
@@ -119,73 +184,29 @@ function MovieNode() {
     setPage(0)
   }
 
-  // TODO copy above: Peopel and Movie.length
-  // add datathen length
+  const handleFilterChange = (nameFilter) => (event) => {
+    const val = event.target.value
+    setFilterState((oldFilterState) => ({
+      ...oldFilterState,
+      [nameFilter]: val,
+    }))
+  }
 
-  // const [selectedNode, setSelectedNode] = React.useState('none')
-  // const [selectedQuery, setSelectedQuery] = React.useState('none')
-  // const [selectedQueryDataLength, setSelectedQueryDataLength] = React.useState('none')
-  //
-  // const handleSelectNode = (name) => {
-  //   let newSelectedNode
-  //   let newSelectedQuery
-  //   let newSelectedQueryDataLength
-  //
-  //   if (name === 'Person') {
-  //     newSelectedNode = 'Person'
-  //     newSelectedQuery = 'GET_PERSONS'
-  //     newSelectedQueryDataLength='data.Person'
-  //   } else if (name === 'Movie') {
-  //     newSelectedNode = 'Movie'
-  //     newSelectedQuery = 'GET_MOVIES'
-  //     newSelectedQueryDataLength='data.Movie'
-  //   } else   {
-  //     newSelectedNode = ''
-  //     newSelectedQuery = ''
-  //     newSelectedQueryDataLength=''
-  //   }
-  //   setSelectedNode(newSelectedNode)
-  //   setSelectedQuery(newSelectedQuery)
-  //   setSelectedQueryDataLength(newSelectedQueryDataLength)
-  // }
+  const handleRequestSort = (event, property) => {
+    const isAsc = orderBy === property && order === 'asc'
+    setOrder(isAsc ? 'desc' : 'asc')
+    setOrderBy(property)
+  }
 
-  // useEffect(()=>{
-  //   handleSelectNode(valueMainSelection)
-  //   console.log('selected radio: ' + valueMainSelection);
-  //   console.log('selected NODE: ' + selectedNode);
-  //   console.log('selected Query: ' + selectedQuery);
-  //   // console.log('selected data length: ' + dataLengthw);
-  // })
-
-  const { loading, data, error } = useQuery(GET_MOVIES, {
-    variables: {
-      first: rowsPerPage,
-      offset: rowsPerPage * page,
-      orderBy: orderBy + '_' + order,
-      filter: getFilter(),
-    },
-  })
-
-  let input
-  // const [createStep] = useMutation(CREATE_STEP)
-  // const [editStep] = useMutation(EDIT_STEP);
-  // const [deleteStep] = useMutation(REMOVE_STEP)
-
-  // console.log('Data back: ' + data)
-  // console.log('Data length: ' + dataLength)
-  console.log('Data selected: ' + selected)
 
   return (
     <React.Fragment>
       <Paper elevation={3}>
         <Typography className="Title" component="div" variant="h4">
-          Movie
+          {typeNode}
         </Typography>
 
-        <Grid row
-              container
-              justify="space-evenly"
-              alignItems="center">
+        <Grid row container justify="space-evenly" alignItems="center">
           <TextField
             id="search"
             label="Name Contains"
@@ -200,14 +221,19 @@ function MovieNode() {
           <FormGroup
             row
             // TODO variant="primary"
-            // onSubmit={(e) => {
-            //   e.preventDefault()
-            //   createStep({ variables: { name: input.value } })
-            //   input.value = ''
-            //   window.location.reload()
-            // }}
+            // onSubmit={doSomething}
+
+            onSubmit={(e) => {
+              e.preventDefault()
+              console.log('Create: ' + input.value )
+              createNode({ variables: { title: input.value  } });
+              input.value = ''
+              window.location.reload();
+            }}
+
           >
             <TextField
+              id="create"
               label="Enter name of new node"
               margin="normal"
               variant="outlined"
@@ -216,15 +242,14 @@ function MovieNode() {
               ref={(node) => {
                 input = node
               }}
-            ></TextField>
-            <ButtonGroup>
-              <Button
-                variant="contained"
-                type="submit"
+            />
+
+            {/*<ButtonGroup>*/}
+              <Button variant="contained" type="submit"
               >
                 Create
               </Button>
-            </ButtonGroup>
+            {/*</ButtonGroup>*/}
           </FormGroup>
         </Grid>
 
@@ -237,7 +262,7 @@ function MovieNode() {
               <Table>
                 {/*TODO 13 Selected (7 not visible)*/}
                 <EnhancedTableHead
-                  headCells="HeadCellsMovie"
+                  headCells={headCellsData}
                   numSelected={selected.length}
                   order={order}
                   orderBy={orderBy}
@@ -246,35 +271,60 @@ function MovieNode() {
                   rowCount={dataLength()}
                 />
                 <TableBody>
-                  {data.Movie.map((row, index) => {
-                    const isItemSelected = isSelected(row.title)
+                  {dataTable().map((row, index) => {
+                    const isItemSelected = isSelected(eval(dataKey()))
                     const labelId = `enhanced-table-checkbox-${index}`
+                    // Object.keys(row).map((key, id) => {
+                    //   return <div>{key}</div>
+                    // })
                     return (
                       <TableRow
                         hover
-                        onClick={(event) => handleClick(event, row.title)}
                         role="checkbox"
                         aria-checked={isItemSelected}
                         tabIndex={-1}
-                        key={row.title}
+                        key={eval(dataKey())}
                         selected={isItemSelected}
                       >
                         {/*TODO add cells based on data landscape*/}
-                        <TableCell padding="checkbox">
+                        <TableCell padding="checkbox"
+                                   onClick={(event) => handleClick(event, eval(dataKey()))}
+                        >
                           <Checkbox
                             checked={isItemSelected}
                             inputProps={{ 'aria-labelledby': labelId }}
                           />
                         </TableCell>
+                        {/*{Object.keys(row).map((key, id) => {*/}
+                        {/*  id > 1 ? (*/}
+                        {/*    console.log(key)*/}
+                        {/*  ) : (*/}
+                        {/*    console.log(id)*/}
+                        {/*  )*/}
+                        {/*})}*/}
+
                         {/*<TableCell align="right">{row.id}</TableCell>*/}
+
+
+
+
+
+
+
+
+
+
+
                         <TableCell align="right">{row.title}</TableCell>
                         <TableCell align="right">{row.released}</TableCell>
                         <TableCell align="right">{row.tagline}</TableCell>
+
                         <TableCell align="center">
                           <ButtonGroup aria-label="outlined primary button group">
                             <Button
                               // TODO variant="info"
                               // className="btn btn-sm rounded-circle float-right"
+                              disabled
                               onClick={() => {
                                 console.log('Details: ' + row.id)
                                 // TODO add action
@@ -297,13 +347,12 @@ function MovieNode() {
                             <Button
                               // className="btn btn-sm btn-danger rounded-circle float-right"
                               // TODO variant="danger"
+                              // onClick={deleteOneNode(row)}
                               onClick={() => {
                                 console.log('Delete: ' + row.id)
-                                // deleteStep({ variables: { id: row.id } });
-                                // window.location.reload();
-                                // TODO add action
+                                deleteNode({ variables: { title: row.title } });
+                                window.location.reload();
                               }}
-                              disabled
                             >
                               <DeleteIcon />
                             </Button>
@@ -316,8 +365,8 @@ function MovieNode() {
               </Table>
             </TableContainer>
             <TablePagination
-              rowsPerPageOptions={[5, 10, 25]}
-              //       TODO fetch all data to 1-5 of 25
+              // TODO as page options prop
+              rowsPerPageOptions={[5, 10, 25, 100]}
               count={dataLength()}
               rowsPerPage={rowsPerPage}
               page={page}
@@ -331,4 +380,14 @@ function MovieNode() {
   )
 }
 
-export default MovieNode
+EnhancedNode.propTypes = {
+  typeNodeProp: PropTypes.string.isRequired,
+  headCellsProp: PropTypes.object.isRequired,
+  orderProp: PropTypes.oneOf(['asc', 'desc']).isRequired,
+  // orderByProp: PropTypes.string.isRequired,
+  // rowsPerPageProp: PropTypes.number.isRequired,
+  // errorProp: PropTypes.bool.isRequired,
+  dataKeyProp: PropTypes.string.isRequired,
+}
+
+export { EnhancedNode }

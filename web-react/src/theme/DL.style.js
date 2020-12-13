@@ -1,6 +1,15 @@
 import createMuiTheme from '@material-ui/core/styles/createMuiTheme'
 import { purple } from '@material-ui/core/colors'
 
+const themeDef= createMuiTheme({
+
+})
+
+const sizeDef= createMuiTheme({
+  fontSizee: 55,
+})
+
+
 const themeDark = createMuiTheme({
   backgroundPaper: 'rgb(2,10,45)',
   backgroundTable: 'rgb(2,10,45)',
@@ -148,6 +157,7 @@ borderMain: 'rgb(134,134,134)',
 //   // borderWidth: 4,
 // }
 
-const StyleDL = (mode) => (mode === 'dark' ? themeDark : themeLight)
+const StyleDL = (mode) => (mode === 'dark' ? themeDark : mode === 'light' ? themeLight : themeDef)
+const StyleSize = (sizeDef)
 
-export { StyleDL, themeDark, themeLight }
+export { StyleDL, StyleSize, themeDark, themeLight, themeDef }

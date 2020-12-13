@@ -5,11 +5,10 @@ const HeadCellsPerson = [
   // TODO add tooltip
 ];
 const HeadCellsMovie = [
-  { id: 'released', numeric: true, disablePadding: false, label: 'Released Year' },
-  { id: 'tagline', numeric: false, disablePadding: false, label: 'Tagline' },
-  { id: 'title', numeric: false, disablePadding: true, label: 'Title' },
-  { id: 'action', numeric: false, disablePadding: false, label: 'Action' },
-  // TODO add tooltip
+  { key: 'title', disablePadding: true, label: 'Title ' , type:'string', order:1, sort:'asc', align:'center',  tooltip:'Just a note Title'},
+  { key: 'released',  disablePadding: false, label: 'Released Year' , type:'numeric', order:2,sort:'desc', align:'left', tooltip:'Just a note DATE'},
+  { key: 'tagline',  disablePadding: false, label: 'Tagline', type:'string', order:3,sort:'desc', align:'justify',  tooltip:'Just a TEXT'},
+  { key: 'action', disablePadding: false, label: 'Action', type:'object', order:4,sort:'asc', align:'right', tooltip:'Just a TODO'},
 ];
 
 // TODO if date new on top

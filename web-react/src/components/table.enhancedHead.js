@@ -1,18 +1,15 @@
-import { Checkbox, TableCell, TableHead, TableRow, TableSortLabel } from '@material-ui/core'
+import { Checkbox, TableCell, TableHead, TableRow, TableSortLabel, Tooltip } from '@material-ui/core'
 import PropTypes from 'prop-types'
 import React from 'react'
 
-import {HeadCellsMovie} from './table.head.cells'
-
-// TODO data.heading as prop
 // TODO filter at header headCells
 // TODO order by multiple headings
 // TODOSticky header row
 // TODO scroll of No. of rows or columns are greater then
 // TODO when intermediate on click unselect all
 
-function EnhancedTableMovieHead(props) {
-  const { onSelectAllClick, order, orderBy, numSelected, rowCount, onRequestSort } = props;
+function EnhancedTableHead(props) {
+  const { headCells, onSelectAllClick, order, orderBy, numSelected, rowCount, onRequestSort } = props;
   const createSortHandler = (property) => (event) => {
     onRequestSort(event, property);
   };
@@ -28,29 +25,44 @@ function EnhancedTableMovieHead(props) {
   return (
     <TableHead>
       <TableRow>
+
         <TableCell padding="checkbox">
+          <Tooltip
+            title="Select visible, select all and then unselect all, including non-visible"
+          >
           <Checkbox
             indeterminate={numSelected > 0 && numSelected < rowCount}
             checked={rowCount > 0 && numSelected === rowCount}
             onChange={onSelectAllClick}
             inputProps={{ 'aria-label': 'select all' }}
           />
+
+        </Tooltip>
         </TableCell>
-        {HeadCellsMovie.map((headCell) => (
+        {headCells.map((headCell) => (
           <TableCell
-            key={headCell.id}
-            align={headCell.numeric ? 'right' : 'left'}
+            key={headCell.key}
+            // align={headCell.numeric ? 'right' : 'left'}
             padding={headCell.disablePadding ? 'none' : 'default'}
-            sortDirection={orderBy === headCell.id ? order : false}
-            // TODO add tooltip
+            sortDirection={orderBy === headCell.key ? order : false}
+            // TODO set headding baed on order? or movable?
+            // order={headCell.order}
+            align ={headCell.align}
+                     // TODO add wrapping
           >
+            <Tooltip
+              title={headCell.tooltip}
+            >
             <TableSortLabel
-              active={orderBy === headCell.id}
-              direction={orderBy === headCell.id ? order : 'asc'}
-              onClick={createSortHandler(headCell.id)}
+              active={orderBy === headCell.key}
+              // TODO if date new ir string abc if number small
+              headDataType={headCell.type}
+              // direction={orderBy === headCell.key ? order : 'asc'}
+              direction={headCell.sort}
+              onClick={createSortHandler(headCell.key)}
             >
               {headCell.label}
-              {orderBy === headCell.id ? (
+              {orderBy === headCell.key ? (
                 <span
                   className="visuallyHidden"
                 >
@@ -59,6 +71,7 @@ function EnhancedTableMovieHead(props) {
                 </span>
               ) : null}
             </TableSortLabel>
+            </Tooltip>
           </TableCell>
         ))}
       </TableRow>
@@ -66,7 +79,8 @@ function EnhancedTableMovieHead(props) {
   );
 }
 
-EnhancedTableMovieHead.propTypes = {
+EnhancedTableHead.propTypes = {
+  headCells: PropTypes.object.isRequired,
   numSelected: PropTypes.number.isRequired,
   onRequestSort: PropTypes.func.isRequired,
   onSelectAllClick: PropTypes.func.isRequired,
@@ -76,5 +90,5 @@ EnhancedTableMovieHead.propTypes = {
 };
 
 export {
-  EnhancedTableMovieHead,
+  EnhancedTableHead,
 };

@@ -6,7 +6,7 @@ import {
   Paper,
   Tooltip,
   IconButton,
-  Toolbar,
+  Toolbar, Table,
 } from '@material-ui/core'
 
 import { useQuery } from '@apollo/client'
@@ -23,6 +23,10 @@ import FilterListIcon from '@material-ui/icons/FilterList'
 import PersonNode from './PersonNode'
 import MovieNode from './MovieNode'
 import { CompProp } from './a0CompWithProp'
+import { EnhancedNode } from './TESTpropNODE.head'
+import {HeadCellsMovie} from './table.head.cells'
+import ReactStart from './ReactStart'
+
 
 const BareBonesSelector=()=> {
   const [order, setOrder] = React.useState('asc')
@@ -30,6 +34,9 @@ const BareBonesSelector=()=> {
   const [selected, setSelected] = React.useState([])
   const [page, setPage] = React.useState(0)
   const [rowsPerPage, setRowsPerPage] = React.useState(5)
+
+  const textINNNNN="HELLOE"
+
 
   // const { loading, data, error } = useQuery(GET_MOVIES, {})
 
@@ -50,6 +57,8 @@ const BareBonesSelector=()=> {
   //   return data.PersonCount
   // }
   // console.log('Data list:' + data)
+
+
 
   return (
     <React.Fragment>
@@ -87,14 +96,31 @@ const BareBonesSelector=()=> {
           <div>
             TODO As prop from selector
             {valueMainSelection == 'Movie' ? (
-              <MovieNode />
+
+                <EnhancedNode
+                  typeNodeProp={valueMainSelection}
+                  headCellsProp={HeadCellsMovie}
+                  // numSelected={selected.length}
+                  orderProp='asc'
+                  orderByProp="title"
+                  // onSelectAllClick={handleSelectAllClick}
+                  // onRequestSort={handleRequestSort}
+                  rowsPerPageProp={5}
+                  // errorProp={error}
+                  // loadingProp={loading}
+                  // dataProp={data}
+                  dataKeyProp='id'
+                />
+
+
+              // <MovieNode />
             ) : valueMainSelection == 'Person' ? (
               <PersonNode />
             ) : (
 
-              <CompProp
+              <ReactStart
               numSelected = '6'
-              selected = 'Person'
+              selected = 'Other'
               // query={useQuery(GET_MOVIES, {})}
               />
 

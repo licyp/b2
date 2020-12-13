@@ -4,6 +4,40 @@ import { calculateActiveTickIndex } from 'recharts/lib/util/ChartUtils'
 
 const WrapperDL = styled.div(
   {
+
+    '.test1': {
+      border: 2,
+      borderColor: 'red',
+      borderStyle: 'dashed',
+      // backgroundColor: 'red',
+    },
+    '.test2': {
+      border: 2,
+      borderColor: 'yellow',
+      borderStyle: 'dashed',
+      // backgroundColor: 'yellow',
+    },
+    '.test3': {
+      border: 2,
+      borderColor: 'blue',
+      borderStyle: 'dashed',
+      // backgroundColor: 'blue',
+    },
+    '.test4': {
+      border: 2,
+      borderColor: 'green',
+      borderStyle: 'dashed',
+      // backgroundColor: 'green',
+    },
+    '.test5': {
+      border: 2,
+      borderColor: 'orange',
+      borderStyle: 'dashed',
+      // backgroundColor: 'orange',
+    },
+
+
+
     '.visuallyHidden': {
       border: 0,
       clip: 'rect(0 0 0 0)',
@@ -62,6 +96,16 @@ const WrapperDL = styled.div(
       '&:first-child': {
         borderLeftStyle: 'none',
       },
+    },
+
+
+    '.Title': {
+      marginLeft: 24,
+      marginRight: 24,
+      marginTop: 8,
+      marginBottom:8,
+      overflowX: 'auto',
+      // margin: 'auto',
     },
   },
 
@@ -176,11 +220,17 @@ const WrapperDL = styled.div(
           color: 'inherit',
         },
       },
+      '.MuiButton-label': {
+        '&.Mui-disabled': {
+          // background: 'inherit',
+          color: props.theme.textDisabled,
+        },
+      },
     },
 
     '.MuiButton-label': {
       // background: 'inherit',
-      color: props.theme.textMain,
+      color: 'inherit',
       '&:hover': {
         // background:'inherit',
         color: props.theme.textHover,
